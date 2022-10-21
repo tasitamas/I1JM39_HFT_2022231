@@ -26,10 +26,20 @@ namespace I1JM39_HFT_2022231.Models
 
         public DateTime Release { get; set; }
 
+        public int DeveloperId { get; set; }
         public virtual Developer Developer { get; set; }
         public virtual ICollection<Character> Characters { get; set; }
 
-        public Game(){}
-
+        public Game() { }
+        public Game(string line)
+        {
+            string[] split = line.Split('#');
+            GameId = int.Parse(split[0]);
+            GameName = split[1];
+            Income = double.Parse(split[2]);
+            Rating = double.Parse(split[3]);
+            Release = DateTime.Parse(split[4]);
+            DeveloperId = int.Parse(split[5]);
+        }
     }
 }

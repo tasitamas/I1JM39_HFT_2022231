@@ -24,5 +24,12 @@ namespace I1JM39_HFT_2022231.Models
         {
             Games = new HashSet<Game>();
         }
+        public Developer(string line)
+        {
+            string[] split = line.Split('#');
+            DeveloperId = int.Parse(split[0]);
+            DeveloperName = split[1];
+            Games = new HashSet<Game>();
+        }
     }
 }
