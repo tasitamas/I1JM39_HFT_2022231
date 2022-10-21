@@ -26,6 +26,7 @@ namespace I1JM39_HFT_2022231.Models
 
         public DateTime Release { get; set; }
 
+        [ForeignKey("DeveloperId")]
         public int DeveloperId { get; set; }
         public virtual Developer Developer { get; set; }
         public virtual ICollection<Character> Characters { get; set; }
