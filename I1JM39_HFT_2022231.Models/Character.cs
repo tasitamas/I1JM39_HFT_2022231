@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
 {
-    internal class Character
+    public class Character
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
 {
-    internal class Game
+    public class Game
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
