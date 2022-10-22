@@ -1,4 +1,6 @@
-﻿using System;
+﻿using I1JM39_HFT_2022231.Repository;
+using System;
+using System.Linq;
 
 namespace I1JM39_HFT_2022231.Client
 {
@@ -6,7 +8,8 @@ namespace I1JM39_HFT_2022231.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GameDbContext db = new GameDbContext();
+            var items = db.Games.ToArray();
         }
     }
 }
