@@ -5,6 +5,20 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="game.mdf" />
+	  <None Remove="game_log.ldf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="game.mdf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="game_log.ldf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
@@ -17,6 +31,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\I1JM39_HFT_2022231.Models\I1JM39_HFT_2022231.Models.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ModelRepositories\" />
 	</ItemGroup>
 
 </Project>
