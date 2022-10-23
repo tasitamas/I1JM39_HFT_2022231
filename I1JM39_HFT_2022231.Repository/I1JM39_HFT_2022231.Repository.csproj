@@ -33,8 +33,4 @@
 	  <ProjectReference Include="..\I1JM39_HFT_2022231.Models\I1JM39_HFT_2022231.Models.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ModelRepositories\" />
-	</ItemGroup>
-
 </Project>
