@@ -20,11 +20,9 @@ namespace I1JM39_HFT_2022231.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn =
-                    @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\game.mdf;Integrated Security=True;MultipleActiveResultSets=True";
                 optionsBuilder
-                        .UseLazyLoadingProxies()
-                        .UseSqlServer(conn);
+                    .UseInMemoryDatabase("GameDb")
+                    .UseLazyLoadingProxies();
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,6 +53,7 @@ namespace I1JM39_HFT_2022231.Repository
                     new Game("8#Dead by Daylight#5000#6.0#2016*06*14#5"),
                     new Game("9#Grand Theft Auto V#15000#9.0#2013*09*17#6"),
                     new Game("10#Red Dead Redemption#9000#7.8#2010*05*18#6"),
+                    new Game("11#Red Dead Redemption 2#9000#9.33#2010*06*19#6"),
                 });
             modelBuilder.Entity<Developer>().HasData(new Developer[]
                 {
@@ -122,6 +121,10 @@ namespace I1JM39_HFT_2022231.Repository
                     new Character("43#John Marston#1#10"),
                     new Character("44#Spouse#1#10"),
                     new Character("45#Arthur#2#10"),
+
+                    new Character("46#John Marston#1#11"),
+                    new Character("47#Spouse#1#11"),
+                    new Character("48#Arthur#2#11"),
                 });
         }
     }

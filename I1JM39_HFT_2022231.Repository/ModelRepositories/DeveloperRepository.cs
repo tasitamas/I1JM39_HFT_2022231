@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace I1JM39_HFT_2022231.Repository.ModelRepositories
+namespace I1JM39_HFT_2022231.Repository
 {
     public class DeveloperRepository : Repository<Developer>, IRepository<Developer>
     {
