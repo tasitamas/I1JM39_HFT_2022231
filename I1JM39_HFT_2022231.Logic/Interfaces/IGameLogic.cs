@@ -1,5 +1,7 @@
 ﻿using I1JM39_HFT_2022231.Models;
+using System.Collections.Generic;
 using System.Linq;
+using static I1JM39_HFT_2022231.Logic.GameLogic;
 
 namespace I1JM39_HFT_2022231.Logic
 {
@@ -13,5 +15,11 @@ namespace I1JM39_HFT_2022231.Logic
         void Update(Game item);
 
         //Non CRUD Methods
+        public IEnumerable<GameInfo> OldestGameWithDeveloperName();
+        public IEnumerable<GameInfo> YoungestGameWithDeveloperName();
+        public IEnumerable<object> OlderThan10YearsGames();
+        public IEnumerable<object> HighestRatingGameWithDevName();
+        public IEnumerable<object> GamesWithNpc();
+        public IEnumerable<object> FreeGames();
     }
 }

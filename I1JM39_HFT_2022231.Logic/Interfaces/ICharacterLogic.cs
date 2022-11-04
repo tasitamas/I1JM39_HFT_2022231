@@ -11,7 +11,5 @@ namespace I1JM39_HFT_2022231.Logic
         Character Read(int id);
         IQueryable<Character> ReadAll();
         void Update(Character item);
-
-        //Non CRUD Methods
     }
 }

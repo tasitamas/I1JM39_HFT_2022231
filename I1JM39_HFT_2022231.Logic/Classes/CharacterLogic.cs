@@ -1,4 +1,4 @@
-﻿using I1JM39_HFT_2022231.Logic.Interfaces;
+﻿using I1JM39_HFT_2022231.Logic;
 using I1JM39_HFT_2022231.Models;
 using I1JM39_HFT_2022231.Repository;
 using System;
@@ -41,7 +41,5 @@ namespace I1JM39_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
-
-        //Non CRUD Methods
     }
 }

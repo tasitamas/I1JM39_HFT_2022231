@@ -53,7 +53,8 @@ namespace I1JM39_HFT_2022231.Repository
                     new Game("8#Dead by Daylight#5000#6.0#2016*06*14#5"),
                     new Game("9#Grand Theft Auto V#15000#9.0#2013*09*17#6"),
                     new Game("10#Red Dead Redemption#9000#7.8#2010*05*18#6"),
-                    new Game("11#Red Dead Redemption 2#9000#9.33#2010*06*19#6"),
+                    new Game("11#Red Dead Redemption 2#9000#9.33#2018*10*26#6"),
+                    new Game("12#Call of Duty: Black Ops III#15000#6.77#2015*11*05#3")
                 });
             modelBuilder.Entity<Developer>().HasData(new Developer[]
                 {
@@ -78,8 +79,8 @@ namespace I1JM39_HFT_2022231.Repository
                     new Character("9#Neon#1#2"),
                     new Character("10#Chamber#2#2"),
                     new Character("11#Skye#1#2"),
+                    
                     new Character("12#Kil'jaeden#2#3"),
-
                     new Character("13#Archimonde#2#3"),
                     new Character("14#Deathwing#2#3"),
                     new Character("15#Arthas Menethil, The Lich King#2#3"),
@@ -125,6 +126,10 @@ namespace I1JM39_HFT_2022231.Repository
                     new Character("46#John Marston#1#11"),
                     new Character("47#Spouse#1#11"),
                     new Character("48#Arthur#2#11"),
+
+                    new Character("49#John Taylor#3#12"),
+                    new Character("50#Ghost#1#12"),
+                    new Character("51#Dylan Stone#2#12"),
                 });
         }
     }
