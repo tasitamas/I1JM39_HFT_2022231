@@ -18,6 +18,14 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Developer item)
         {
+            if (item.DeveloperName.Length < 2)
+            {
+                throw new ArgumentException("The name is too short.");
+            }
+            if(item.DeveloperName.Length > 150)
+            { 
+                throw new ArgumentException("The name is too long.");
+            }
             repo.Create(item);
         }
         public void Delete(int id)

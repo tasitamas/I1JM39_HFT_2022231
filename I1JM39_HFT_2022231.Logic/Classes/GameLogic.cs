@@ -15,6 +15,11 @@ namespace I1JM39_HFT_2022231.Logic
         IRepository<Game> gameRepo;
         IRepository<Developer> devRepo;
         IRepository<Character> charRepo;
+
+        public GameLogic(IRepository<Game> repo)
+        {
+            this.gameRepo = repo;
+        }
         public GameLogic(IRepository<Game> repo, IRepository<Developer> devRepo, IRepository<Character> charRepo)
         {
             this.gameRepo = repo;
@@ -26,7 +31,18 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Game item)
         {
-            this.gameRepo.Create(item);
+            if (item.GameName.Length < 2)
+            {
+                throw new ArgumentException("The name is too short.");
+            }
+            else if (item.GameName.Length > 250)
+            {
+                throw new ArgumentException("The name is too long.");
+            }
+            else
+            {
+                this.gameRepo.Create(item);
+            }
         }
         public void Delete(int id)
         {
@@ -37,7 +53,7 @@ namespace I1JM39_HFT_2022231.Logic
             var game = this.gameRepo.Read(id);
             if (game == null)
             {
-                throw new ArgumentException("This game doesn't exist.");
+                throw new ArgumentException("This game with this id doesn't exist.");
             }
             return game;
         }
