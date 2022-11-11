@@ -18,6 +18,7 @@ namespace I1JM39_HFT_2022231.Models
         [StringLength(150)]
         public string DeveloperName { get; set; }
 
+        [NotMapped]
         public virtual ICollection<Game> Games { get; set; }
 
         public Developer()

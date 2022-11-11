@@ -19,8 +19,10 @@ namespace I1JM39_HFT_2022231.Models
         public string CharacterName { get; set; }
         public int Priority { get; set; }
 
-        [ForeignKey("GameId")]
+        [ForeignKey(nameof(Game))]
         public int GameId { get; set; }
+
+        [NotMapped]
         public virtual Game Game { get; private set; }
 
         public Character() { }
