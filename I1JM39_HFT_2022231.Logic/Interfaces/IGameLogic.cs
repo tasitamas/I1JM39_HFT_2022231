@@ -15,11 +15,13 @@ namespace I1JM39_HFT_2022231.Logic
         void Update(Game item);
 
         //Non CRUD Methods
-        public IEnumerable<GameInfo> OldestGameWithDeveloperName();
-        public IEnumerable<GameInfo> YoungestGameWithDeveloperName();
-        public IEnumerable<object> OlderThan10YearsGames();
-        public IEnumerable<object> HighestRatingGameWithDevName();
-        public IEnumerable<object> GamesWithNpc();
-        public IEnumerable<object> FreeGames();
+        public IEnumerable<BasicGameInfo> OldestGameWithDeveloperName();
+        public IEnumerable<BasicGameInfo> YoungestGameWithDeveloperName();
+        public IEnumerable<BasicGameInfo> OlderThan10YearsGames();
+        public IEnumerable<BasicGameInfo> GamesWithNpc();
+        public IEnumerable<RatingInfo> HighestRatingGameWithDevName();
+        public IEnumerable<RatingInfo> LowestRatingGameWithDevName();
+        public IEnumerable<RatingInfo> FreeGames();
+        public IEnumerable<RatingInfo> PaidGames();
     }
 }

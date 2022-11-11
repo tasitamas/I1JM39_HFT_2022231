@@ -24,6 +24,7 @@ namespace I1JM39_HFT_2022231.Client
             var highestRating = gameLogic.HighestRatingGameWithDevName();
             var gamesWithNpc = gameLogic.GamesWithNpc();
             var freeGames = gameLogic.FreeGames();
+            var paidGames = gameLogic.PaidGames();
             ;
         }
     }

@@ -19,7 +19,7 @@ namespace I1JM39_HFT_2022231.Models
         public string GameName { get; set; }
 
         [Range(0, 20000)]
-        public double Income { get; set; }
+        public double Price { get; set; }
 
         [Range(0, 10)]
         public double Rating { get; set; }
@@ -41,7 +41,7 @@ namespace I1JM39_HFT_2022231.Models
             string[] split = line.Split('#');
             GameId = int.Parse(split[0]);
             GameName = split[1];
-            Income = double.Parse(split[2]);
+            Price = double.Parse(split[2]);
             Rating = double.Parse(split[3]);
             Release = DateTime.Parse(split[4].Replace('*','.'));
             DeveloperId = int.Parse(split[5]);

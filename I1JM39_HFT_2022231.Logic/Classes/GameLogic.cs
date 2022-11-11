@@ -67,106 +67,161 @@ namespace I1JM39_HFT_2022231.Logic
         }
 
         //Non CRUD Methods
-        public IEnumerable<GameInfo> OldestGameWithDeveloperName()
+        public IEnumerable<BasicGameInfo> OldestGameWithDeveloperName()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
                    let minAge = gameRepo.ReadAll().Min(t => t.Release.Year)
                    where g.DeveloperId == d.DeveloperId && g.Release.Year == minAge
-                   select new GameInfo()
+                   select new BasicGameInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
                        Age = (int)DateTime.Now.Year - (int)g.Release.Year,
                    };
         }
-        public IEnumerable<GameInfo> YoungestGameWithDeveloperName()
+        public IEnumerable<BasicGameInfo> YoungestGameWithDeveloperName()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
                    let maxAge = gameRepo.ReadAll().Max(t => t.Release.Year)
                    where g.DeveloperId == d.DeveloperId && g.Release.Year == maxAge
-                   select new GameInfo()
+                   select new BasicGameInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
                        Age = (int)DateTime.Now.Year - (int)g.Release.Year,
                    };
         }
-        public IEnumerable<object> OlderThan10YearsGames()
+        public IEnumerable<BasicGameInfo> OlderThan10YearsGames()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
                    where g.DeveloperId == d.DeveloperId
                    && ((int)DateTime.Now.Year - (int)g.Release.Year > 10)
-                   select new
+                   select new BasicGameInfo()
                    {
                        DevName = d.DeveloperName,
                        GameName = g.GameName,
+                       Age = (int)DateTime.Now.Year - (int)g.Release.Year,
                    };
         }
-        public IEnumerable<object> HighestRatingGameWithDevName()
+        public IEnumerable<BasicGameInfo> GamesWithNpc()
+        {
+            var q1 = from g in this.gameRepo.ReadAll()
+                     from c in this.charRepo.ReadAll()
+                     from d in this.devRepo.ReadAll()
+                     where (c.Priority == 3 && c.Priority != 2 && c.Priority != 1) && c.GameId == g.GameId && d.DeveloperId == g.DeveloperId
+                     select new BasicGameInfo()
+                     {
+                         GameName = g.GameName,
+                         DevName = d.DeveloperName,
+                         Age = (int)DateTime.Now.Year - (int)g.Release.Year,
+                     };
+            return q1.Distinct();
+        }
+        public IEnumerable<RatingInfo> HighestRatingGameWithDevName()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
                    let maxRating = gameRepo.ReadAll().Max(t => t.Rating)
                    where g.DeveloperId == d.DeveloperId && g.Rating == maxRating
-                   select new
+                   select new RatingInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
                        Rating = g.Rating,
+                       Price = g.Price,
                    };
         }
-        public IEnumerable<object> GamesWithNpc()
-        {
-            return from g in this.gameRepo.ReadAll()
-                   from c in this.charRepo.ReadAll()
-                   from d in this.devRepo.ReadAll()
-                   where (c.Priority == 3 && c.Priority != 2 && c.Priority != 1) && c.GameId == g.GameId && d.DeveloperId == g.DeveloperId
-                   select new
-                   {
-                       GameName = g.GameName,
-                       DevName = d.DeveloperName,
-                   };
-        }
-        public IEnumerable<object> FreeGames()
+        public IEnumerable<RatingInfo> LowestRatingGameWithDevName()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
-                   where g.DeveloperId == d.DeveloperId && g.Income == 0
-                   select new
+                   let minRating = gameRepo.ReadAll().Min(t => t.Rating)
+                   where g.DeveloperId == d.DeveloperId && g.Rating == minRating
+                   select new RatingInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
-                       ReleaseDate = g.Release,
                        Rating = g.Rating,
+                       Price = g.Price,
                    };
         }
-
-        //Helping class
-        public class GameInfo
-        { 
-            public string GameName { get; set; }
-            public string DevName { get; set; }
-            public int Age { get; set; }
-
-            public override bool Equals(object obj)
-            {
-                GameInfo gameInfo = obj as GameInfo;
-                if (gameInfo == null)
-                {
-                    return false;
-                }
-                else
-                { 
-                return this.GameName == gameInfo.GameName && this.DevName == gameInfo.DevName && this.Age == gameInfo.Age;
-                }
-            }
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(this.GameName, this.DevName, this.Age);
-            }
+        public IEnumerable<RatingInfo> FreeGames()
+        {
+            return from g in this.gameRepo.ReadAll()
+                   from d in this.devRepo.ReadAll()
+                   where g.DeveloperId == d.DeveloperId && g.Price == 0
+                   select new RatingInfo()
+                   {
+                       GameName = g.GameName,
+                       DevName = d.DeveloperName,
+                       Rating = g.Rating,
+                       Price = g.Price,
+                   };
+        }
+        public IEnumerable<RatingInfo> PaidGames()
+        {
+            return from g in this.gameRepo.ReadAll()
+                   from d in this.devRepo.ReadAll()
+                   where g.DeveloperId == d.DeveloperId && g.Price > 0
+                   select new RatingInfo()
+                   {
+                       GameName = g.GameName,
+                       DevName = d.DeveloperName,
+                       Rating = g.Rating,
+                       Price= g.Price,
+                   };
         }
     }
+
+    //Helping classes
+    public class BasicGameInfo
+    {
+        public string GameName { get; set; }
+        public string DevName { get; set; }
+        public int Age { get; set; }
+        public override bool Equals(object obj)
+        {
+            BasicGameInfo g = obj as BasicGameInfo;
+            if (g == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.GameName == g.GameName && this.DevName == g.DevName && this.Age == g.Age;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.GameName, this.DevName, this.Age);
+        }
+    }
+    public class RatingInfo
+    { 
+        public string GameName { get; set; }
+        public string DevName { get; set; }
+        public double Rating { get; set; }
+        public double Price { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            RatingInfo r = obj as RatingInfo;
+            if (r == null)
+            {
+                return false;
+            }
+            else
+            { 
+            return this.GameName == r.GameName && this.DevName == r.DevName && this.Rating == r.Rating && this.Price == r.Price;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.GameName, this.DevName,this.Rating,this.Price);
+        }
+    }
+    
 }
