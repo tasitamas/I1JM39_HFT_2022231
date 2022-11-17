@@ -71,26 +71,26 @@ namespace I1JM39_HFT_2022231.Logic
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
-                   let minAge = gameRepo.ReadAll().Min(t => t.Release.Year)
-                   where g.DeveloperId == d.DeveloperId && g.Release.Year == minAge
+                   let minAge = gameRepo.ReadAll().Min(t => t.Release)
+                   where g.DeveloperId == d.DeveloperId && g.Release == minAge
                    select new BasicGameInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
-                       Age = (int)DateTime.Now.Year - (int)g.Release.Year,
+                       Age = (int)DateTime.Now.Year - (int)g.Release,
                    };
         }
         public IEnumerable<BasicGameInfo> YoungestGameWithDeveloperName()
         {
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
-                   let maxAge = gameRepo.ReadAll().Max(t => t.Release.Year)
-                   where g.DeveloperId == d.DeveloperId && g.Release.Year == maxAge
+                   let maxAge = gameRepo.ReadAll().Max(t => t.Release)
+                   where g.DeveloperId == d.DeveloperId && g.Release == maxAge
                    select new BasicGameInfo()
                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
-                       Age = (int)DateTime.Now.Year - (int)g.Release.Year,
+                       Age = (int)DateTime.Now.Year - (int)g.Release,
                    };
         }
         public IEnumerable<BasicGameInfo> OlderThan10YearsGames()
@@ -98,12 +98,12 @@ namespace I1JM39_HFT_2022231.Logic
             return from g in this.gameRepo.ReadAll()
                    from d in this.devRepo.ReadAll()
                    where g.DeveloperId == d.DeveloperId
-                   && ((int)DateTime.Now.Year - (int)g.Release.Year > 10)
+                   && ((int)DateTime.Now.Year - (int)g.Release > 10)
                    select new BasicGameInfo()
                    {
                        DevName = d.DeveloperName,
                        GameName = g.GameName,
-                       Age = (int)DateTime.Now.Year - (int)g.Release.Year,
+                       Age = (int)DateTime.Now.Year - (int)g.Release,
                    };
         }
         public IEnumerable<BasicGameInfo> GamesWithNpc()
@@ -116,7 +116,7 @@ namespace I1JM39_HFT_2022231.Logic
                      {
                          GameName = g.GameName,
                          DevName = d.DeveloperName,
-                         Age = (int)DateTime.Now.Year - (int)g.Release.Year,
+                         Age = (int)DateTime.Now.Year - (int)g.Release
                      };
             return q1.Distinct();
         }
