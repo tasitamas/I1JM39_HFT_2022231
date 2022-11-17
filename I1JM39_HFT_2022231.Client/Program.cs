@@ -38,7 +38,7 @@ namespace I1JM39_HFT_2022231.Client
         {
             if (entity == "Game")
             {
-                List<Game> games = rest.Get<Game>("actor");
+                List<Game> games = rest.Get<Game>("game");
                 foreach (var item in games)
                 {
                     Console.WriteLine($"{item.GameId}: {item.GameName}");
@@ -122,58 +122,37 @@ namespace I1JM39_HFT_2022231.Client
         #endregion
         static void Main(string[] args)
         {
-            //rest = new RestService("http://localhost:23247", "game");
+            rest = new RestService("http://localhost:23247/","game");
 
-            //#region Console Menu
-            //var gameSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Game"))
-            //    .Add("Create", () => Create("Game"))
-            //    .Add("Delete", () => Delete("Game"))
-            //    .Add("Update", () => Update("Game"))
-            //    .Add("Exit", ConsoleMenu.Close);
+            #region Console Menu
+            var gameSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Game"))
+                .Add("Create", () => Create("Game"))
+                .Add("Delete", () => Delete("Game"))
+                .Add("Update", () => Update("Game"))
+                .Add("Back", ConsoleMenu.Close);
 
-            //var devSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Developer"))
-            //    .Add("Create", () => Create("Developer"))
-            //    .Add("Delete", () => Delete("Developer"))
-            //    .Add("Update", () => Update("Developer"))
-            //    .Add("Exit", ConsoleMenu.Close);
+            var devSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Developer"))
+                .Add("Create", () => Create("Developer"))
+                .Add("Delete", () => Delete("Developer"))
+                .Add("Update", () => Update("Developer"))
+                .Add("Back", ConsoleMenu.Close);
 
-            //var characterSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("List", () => List("Character"))
-            //    .Add("Create", () => Create("Character"))
-            //    .Add("Delete", () => Delete("Character"))
-            //    .Add("Update", () => Update("Character"))
-            //    .Add("Exit", ConsoleMenu.Close);
+            var characterSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Character"))
+                .Add("Create", () => Create("Character"))
+                .Add("Delete", () => Delete("Character"))
+                .Add("Update", () => Update("Character"))
+                .Add("Back", ConsoleMenu.Close);
 
-            //var menu = new ConsoleMenu(args, level: 0)
-            //    .Add("Games", () => gameSubMenu.Show())
-            //    .Add("Developers", () => devSubMenu.Show())
-            //    .Add("Characters", () => characterSubMenu.Show())
-            //    .Add("Exit", ConsoleMenu.Close);
+            var menu = new ConsoleMenu(args, level: 0)
+                .Add("Game", () => gameSubMenu.Show())
+                .Add("Developer", () => devSubMenu.Show())
+                .Add("Character", () => characterSubMenu.Show())
+                .Add("Exit", ConsoleMenu.Close);
 
-            //menu.Show();
-            //#endregion
-
-
-            #region Noncrud tests TODELETE
-            var ctx = new GameDbContext();
-
-            var gameRepo = new GameRepository(ctx);
-            var devRepo = new DeveloperRepository(ctx);
-            var charRepo = new CharacterRepository(ctx);
-
-            var gameLogic = new GameLogic(gameRepo, devRepo, charRepo);
-
-            var q1 = gameLogic.OldestGameWithDeveloperName();
-            var q2 = gameLogic.YoungestGameWithDeveloperName();
-            var q3 = gameLogic.OlderThan10YearsGames();
-            var q4 = gameLogic.GamesWithNpc();
-            var q5 = gameLogic.HighestRatingGameWithDevName();
-            var q6 = gameLogic.LowestRatingGameWithDevName();
-            var q7 = gameLogic.FreeGames();
-            var q8 = gameLogic.PaidGames();
-            ;
+            menu.Show();
             #endregion
         }
     }
