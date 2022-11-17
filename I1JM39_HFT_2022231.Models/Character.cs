@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
@@ -23,6 +24,7 @@ namespace I1JM39_HFT_2022231.Models
         public int GameId { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Game Game { get; private set; }
 
         public Character() { }

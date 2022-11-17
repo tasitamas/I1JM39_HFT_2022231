@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
@@ -19,6 +20,7 @@ namespace I1JM39_HFT_2022231.Models
         public string DeveloperName { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Game> Games { get; set; }
 
         public Developer()
