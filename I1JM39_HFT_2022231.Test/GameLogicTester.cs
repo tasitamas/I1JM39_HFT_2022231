@@ -28,13 +28,13 @@ namespace I1JM39_HFT_2022231.Test
 
             mockGameRepo.Setup(g => g.ReadAll()).Returns(new List<Game>()
             {
-                new Game("1#Counter Strike:Global Offensive#3500#8.0#2012*08*21#1"),
-                new Game("2#VALORANT#0.00#9.2#2020*06*02#2"),
-                new Game("3#World Of Warcraft#10000#8.1#2004*11*23#3"),
-                new Game("4#League of Legends#0.00#5.0#2009*10*27#2"),
-                new Game("5#Half Life#1500#9.5#1998*11*19#1"),
-                new Game("6#Team Fortress 2#0.00#7.9#2007*10*10#1"),
-                new Game("7#Rocket League#3000#9.7#2015*07*07#4"),
+                new Game("1#Counter Strike:Global Offensive#3500#8.0#2012#1"),
+                new Game("2#VALORANT#0.00#9.2#2020#2"),
+                new Game("3#World Of Warcraft#10000#8.1#2004#3"),
+                new Game("4#League of Legends#0.00#5.0#2009#2"),
+                new Game("5#Half Life#1500#9.5#1998#1"),
+                new Game("6#Team Fortress 2#0.00#7.9#2007#1"),
+                new Game("7#Rocket League#3000#9.7#2015#4"),
             }.AsQueryable());
 
             mockDevRepo.Setup(d => d.ReadAll()).Returns(new List<Developer>()
