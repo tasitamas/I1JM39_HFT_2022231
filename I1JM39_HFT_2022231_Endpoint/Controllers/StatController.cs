@@ -7,11 +7,11 @@ namespace I1JM39_HFT_2022231_Endpoint.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class NonCRUDController : ControllerBase
+    public class StatController : ControllerBase
     {
         IGameLogic logic;
 
-        public NonCRUDController(IGameLogic logic)
+        public StatController(IGameLogic logic)
         {
             this.logic = logic;
         }
