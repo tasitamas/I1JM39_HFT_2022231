@@ -1,6 +1,7 @@
 ﻿using I1JM39_HFT_2022231.Logic;
 using I1JM39_HFT_2022231.Models;
 using I1JM39_HFT_2022231.Repository;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,28 +21,38 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Character item)
         {
-            if (item.CharacterName.Length < 2)
+            if (item.CharacterName == null)
             {
-                throw new ArgumentException("The name is too short");
+                throw new NullReferenceException();
             }
-            else if (item.CharacterName.Length > 200)
+            else if (item.Priority < 1 || item.Priority > 3)
             {
-                throw new ArgumentException("The name is too long");
+                throw new ArgumentException("Not a correct priority");
+            }
+            else if (item.CharacterName.Length > 50)
+            {
+                throw new ArgumentException("The name too long...");
             }
             this.repo.Create(item);
         }
         public void Delete(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             this.repo.Delete(id);
         }
         public Character Read(int id)
         {
-            var character = this.repo.Read(id);
-            if (character == null)
+            if (id < 0)
             {
-                throw new ArgumentException("This character doesn't exist.");
+                throw new ArgumentOutOfRangeException();
             }
-            return character;
+            else
+            { 
+                return repo.Read(id);
+            }
         }
         public IQueryable<Character> ReadAll()
         {
@@ -49,7 +60,30 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Update(Character item)
         {
-            this.repo.Update(item);
+            if (item == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.CharacterName == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.Priority < 1 || item.Priority > 3)
+            {
+                throw new ArgumentException("Not a correct priority");
+            }
+            else if (item.CharacterId <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else if (item.CharacterName.Length > 50)
+            {
+                throw new ArgumentException("The name is too long...");
+            }
+            else
+            {
+                this.repo.Update(item);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using I1JM39_HFT_2022231.Repository;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,31 +32,48 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Game item)
         {
-            if (item.GameName.Length < 2)
+            if (item.GameName == null)
             {
-                throw new ArgumentException("The name is too short.");
+                throw new NullReferenceException();
             }
-            else if (item.GameName.Length > 250)
+            else if (item.Price < 0 || item.Price > 20000)
             {
-                throw new ArgumentException("The name is too long.");
+                throw new ArgumentOutOfRangeException("Not a correct price");
+            }
+            else if (item.Rating < 0 || item.Rating > 10)
+            {
+                throw new ArgumentOutOfRangeException("Not a correct rating");
+            }
+            else if (item.Release < 1900 || item.Release > 2030)
+            {
+                throw new ArgumentOutOfRangeException("Not a correct release date");
             }
             else
             {
-                this.gameRepo.Create(item);
+                gameRepo.Create(item);
             }
         }
         public void Delete(int id)
         {
-            this.gameRepo.Delete(id);
+            if (id < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            { 
+                gameRepo.Delete(id);
+            }
         }
         public Game Read(int id)
         {
-            var game = this.gameRepo.Read(id);
-            if (game == null)
+            if (id < 0)
             {
-                throw new ArgumentException("This game with this id doesn't exist.");
+                throw new ArgumentOutOfRangeException();
             }
-            return game;
+            else
+            {
+                return gameRepo.Read(id);
+            }
         }
         public IQueryable<Game> ReadAll()
         {
@@ -63,22 +81,46 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Update(Game item)
         {
-            this.gameRepo.Update(item);
+            if (item == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.GameName == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.Price < 0 || item.Price > 20000)
+            {
+                throw new ArgumentOutOfRangeException("Not a correct price");
+            }
+            else if (item.Rating < 0 || item.Rating > 10)
+            {
+                throw new ArgumentOutOfRangeException("Not a correct rating");
+            }
+            else if (item.Release < 1900 || item.Release > 2030)
+            {
+                throw new ArgumentOutOfRangeException("Not a correct release date");
+            }
+            else
+            {
+                gameRepo.Update(item);
+            }
         }
 
         //Non CRUD Methods
         public IEnumerable<BasicGameInfo> OldestGameWithDeveloperName()
         {
-            return from g in this.gameRepo.ReadAll()
-                   from d in this.devRepo.ReadAll()
-                   let minAge = gameRepo.ReadAll().Min(t => t.Release)
-                   where g.DeveloperId == d.DeveloperId && g.Release == minAge
-                   select new BasicGameInfo()
-                   {
+            var q = from g in this.gameRepo.ReadAll()
+                    from d in this.devRepo.ReadAll()
+                    let minAge = gameRepo.ReadAll().Min(t => t.Release)
+                    where g.DeveloperId == d.DeveloperId && g.Release == minAge
+                    select new BasicGameInfo()
+                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
                        Age = (int)DateTime.Now.Year - (int)g.Release,
-                   };
+                    };
+            return q.ToList();
         }
         public IEnumerable<BasicGameInfo> YoungestGameWithDeveloperName()
         {
@@ -122,17 +164,18 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public IEnumerable<RatingInfo> HighestRatingGameWithDevName()
         {
-            return from g in this.gameRepo.ReadAll()
-                   from d in this.devRepo.ReadAll()
-                   let maxRating = gameRepo.ReadAll().Max(t => t.Rating)
-                   where g.DeveloperId == d.DeveloperId && g.Rating == maxRating
-                   select new RatingInfo()
-                   {
+            var q = from g in this.gameRepo.ReadAll()
+                    from d in this.devRepo.ReadAll()
+                    let maxRating = gameRepo.ReadAll().Max(t => t.Rating)
+                    where g.DeveloperId == d.DeveloperId && g.Rating == maxRating
+                    select new RatingInfo()
+                    {
                        GameName = g.GameName,
                        DevName = d.DeveloperName,
                        Rating = g.Rating,
                        Price = g.Price,
-                   };
+                    };
+            return q.ToList();
         }
         public IEnumerable<RatingInfo> LowestRatingGameWithDevName()
         {

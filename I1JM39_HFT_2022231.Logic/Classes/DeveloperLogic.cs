@@ -18,28 +18,40 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Developer item)
         {
-            if (item.DeveloperName.Length < 2)
+            if (item.DeveloperName == null)
             {
-                throw new ArgumentException("The name is too short.");
+                throw new NullReferenceException();
             }
-            if(item.DeveloperName.Length > 150)
+            else if (item.DeveloperName.Length > 100)
+            {
+                throw new ArgumentException("The name is too long...");
+            }
+            else
             { 
-                throw new ArgumentException("The name is too long.");
+                repo.Create(item);
             }
-            repo.Create(item);
         }
         public void Delete(int id)
         {
-            repo.Delete(id);
+            if (id < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            { 
+                repo.Delete(id);
+            }
         }
         public Developer Read(int id)
         {
-            var dev = repo.Read(id);
-            if (dev == null)
+            if (id < 0)
             {
-                throw new ArgumentException("This developer doesn't exist.");
+                throw new ArgumentOutOfRangeException();
             }
-            return dev;
+            else
+            {
+                return repo.Read(id);
+            }
         }
         public IQueryable<Developer> ReadAll()
         {
@@ -47,7 +59,26 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Update(Developer item)
         {
-            repo.Update(item);
+            if (item == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.DeveloperName == null)
+            {
+                throw new NullReferenceException();
+            }
+            else if (item.DeveloperId <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else if (item.DeveloperName.Length > 100)
+            {
+                throw new ArgumentException("The name is too long...");
+            }
+            else
+            {
+                repo.Update(item);
+            }
         }
     }
 }
