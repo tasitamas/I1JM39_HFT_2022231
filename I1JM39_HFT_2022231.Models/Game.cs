@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
@@ -24,15 +25,17 @@ namespace I1JM39_HFT_2022231.Models
         [Range(0, 10)]
         public double Rating { get; set; }
 
-        public DateTime Release { get; set; }
+        public int Release { get; set; }
 
         [ForeignKey(nameof(Developer))]
         public int DeveloperId { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Developer Developer { get; set; }
         
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Character> Characters { get; set; }
 
         public Game() { }
@@ -43,7 +46,7 @@ namespace I1JM39_HFT_2022231.Models
             GameName = split[1];
             Price = double.Parse(split[2]);
             Rating = double.Parse(split[3]);
-            Release = DateTime.Parse(split[4].Replace('*','.'));
+            Release = int.Parse(split[4]);
             DeveloperId = int.Parse(split[5]);
         }
     }
