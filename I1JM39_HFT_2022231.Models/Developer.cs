@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
 {
+    [Table("Developers")]
     public class Developer
     {
         [Key]
@@ -16,7 +17,7 @@ namespace I1JM39_HFT_2022231.Models
         public int DeveloperId { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(100)]
         public string DeveloperName { get; set; }
 
         [NotMapped]
@@ -33,6 +34,12 @@ namespace I1JM39_HFT_2022231.Models
             DeveloperId = int.Parse(split[0]);
             DeveloperName = split[1];
             Games = new HashSet<Game>();
+        }
+
+        public override string ToString()
+        {
+            return  $"DeveloperID: {DeveloperId}" +
+                    $"\nName: {DeveloperName}\n";
         }
     }
 }

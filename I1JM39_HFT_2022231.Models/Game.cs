@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
 {
+    [Table("Games")]
     public class Game
     {
         [Key]
@@ -16,15 +17,19 @@ namespace I1JM39_HFT_2022231.Models
         public int GameId { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(150)]
         public string GameName { get; set; }
 
+        [Required]
         [Range(0, 20000)]
         public double Price { get; set; }
 
+        [Required]
         [Range(0, 10)]
         public double Rating { get; set; }
 
+        [Required]
+        [Range(1900,2030)]
         public int Release { get; set; }
 
         [ForeignKey(nameof(Developer))]
@@ -48,6 +53,15 @@ namespace I1JM39_HFT_2022231.Models
             Rating = double.Parse(split[3]);
             Release = int.Parse(split[4]);
             DeveloperId = int.Parse(split[5]);
+        }
+
+        public override string ToString()
+        {
+            return  $"GameID: {GameId} " +
+                    $"\nName: {GameName}" +
+                    $"\nRating: 10/{Rating}" +
+                    $"\nRelease: {Release}" +
+                    $"\nPrice: {Price} HUF\n";
         }
     }
 }

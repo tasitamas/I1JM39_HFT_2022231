@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace I1JM39_HFT_2022231.Models
 {
+    [Table("Characters")]
     public class Character
     {
         [Key]
@@ -16,9 +17,12 @@ namespace I1JM39_HFT_2022231.Models
         public int CharacterId { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(50)]
         public string CharacterName { get; set; }
-        public int Priority { get; set; }
+
+        [Required]
+        [Range(1,3)]
+        public int Priority { get; set; } //1 - Main, 2 - Boss, 3 - NPC
 
         [ForeignKey(nameof(Game))]
         public int GameId { get; set; }
@@ -35,6 +39,21 @@ namespace I1JM39_HFT_2022231.Models
             CharacterName = split[1];
             Priority = int.Parse(split[2]);
             GameId = int.Parse(split[3]);
+        }
+
+        public override string ToString()
+        {
+            string priority = "";
+            if (this.Priority == 1)
+                priority = "Main Character";
+            else if (this.Priority == 2)
+                priority = "Boss";
+            else if (this.Priority == 3)
+                priority = "NPC";
+
+            return  $"CharacterID: {CharacterId}" +
+                    $"\nName: {CharacterName}" +
+                    $"\nPriority: {priority}\n";
         }
     }
 }
