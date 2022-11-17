@@ -70,6 +70,657 @@ namespace I1JM39_HFT_2022231.Test
             logic = new GameLogic(mockGameRepo.Object, mockDevRepo.Object, mockCharRepo.Object);
         }
 
+        #region CRUD Methods tests
+
+        #region Create tests
+        [Test]
+        public void CreateGameWithCorrectNameTest()
+        {
+            var created = new Game()
+                { 
+                    GameId = 8,
+                    GameName = "Overwatch 2",
+                    Price = 0.00,
+                    Rating = 7.8,
+                    Release = 2022,
+                };
+
+            //ACT
+            logic.Create(created);
+
+            //ASSERT
+            mockGameRepo
+                .Verify(c => c.Create(created), Times.Once);
+        }
+        [Test]
+        public void CreateGameWithNullNameTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = null,
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectNameTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "",
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithStringEmptyNameTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = String.Empty,
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectPriceTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = -1,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectPriceTest2()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 100000,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectRatingTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = -1,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectRatingTest2()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = 11,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectReleaseTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = 0.00,
+                Release = 1500,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithIncorrectReleaseTest2()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = 0.00,
+                Release = 2050,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        [Test]
+        public void CreateGameWithLongerThan150NameTest()
+        {
+            var created = new Game()
+            {
+                GameId = 8,
+                GameName =  "This is basically a filling sentence, " +
+                            "that I'm trying to write to test my te" +
+                            "stcases to see if they are working cor" +
+                            "rectly or not. I'm hoping for it that " +
+                            "this will be longer than 150 characters.",
+                Price = 0.00,
+                Rating = 0.00,
+                Release = 2020,
+            };
+
+            try
+            {
+                //ACT
+                logic.Create(created);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
+        }
+        #endregion
+
+        #region ReadAll test
+        [Test]
+        public void ReadAllGameTest()
+        {
+            #region Expected
+            var expected = new Game[]
+                { 
+                    new Game()
+                    {
+                        GameId = 1,
+                        GameName = "Counter Strike:Global Offensive",
+                        Price = 3500,
+                        Rating = 8.0,
+                        Release = 2012,
+                    },
+                    new Game()
+                    {
+                        GameId = 2,
+                        GameName = "VALORANT",
+                        Price = 0.00,
+                        Rating = 9.2,
+                        Release = 2020,
+                    },
+                    new Game()
+                    {
+                        GameId = 3,
+                        GameName = "World Of Warcraft",
+                        Price = 10000,
+                        Rating = 8.1,
+                        Release = 2004,
+                    },
+                    new Game()
+                    {
+                        GameId = 1,
+                        GameName = "League of Legends",
+                        Price = 0.00,
+                        Rating = 5.0,
+                        Release = 2009,
+                    },
+                    new Game()
+                    {
+                        GameId = 5,
+                        GameName = "Half Life",
+                        Price = 1500,
+                        Rating = 9.5,
+                        Release = 1998,
+                    },
+                    new Game()
+                    {
+                        GameId = 6,
+                        GameName = "Team Fortress 2",
+                        Price = 0.00,
+                        Rating = 7.9,
+                        Release = 2007,
+                    },
+                    new Game()
+                    {
+                        GameId = 1,
+                        GameName = "Rocket League",
+                        Price = 3000,
+                        Rating = 9.7,
+                        Release = 2015,
+                    },
+                }.AsQueryable();
+            #endregion
+            mockGameRepo
+                   .Setup(d => d.ReadAll())
+                   .Returns(expected);
+
+            //ACT
+            var actual = logic.ReadAll();
+
+            //ASSERT
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+        #endregion
+
+        #region Read tests
+        [Test]
+        public void ReadGameWithCorrectIDTest()
+        {
+            Game expected = new Game()
+            {
+                GameId = 1,
+                GameName = "Counter Strike:Global Offensive",
+                Price = 3500,
+                Rating = 8.0,
+                Release = 2012
+            };
+
+            mockGameRepo
+                .Setup(d => d.Read(1))
+                .Returns(expected);
+
+            //ACT
+            var actual = logic.Read(1);
+
+            //ASSERT
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+        [Test]
+        public void ReadGameWithIncorrectIDTest()
+        {
+            try
+            {
+                logic.Read(0);
+            }
+            catch { }
+
+            //ACT + ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Read(0));
+        }
+        #endregion
+
+        #region Update tests
+        [Test]
+        public void UpdateGameCorrectTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            //ACT
+            logic.Update(updated);
+
+            //ASSERT
+            mockGameRepo.Verify(c => c.Update(updated), Times.Once);
+        }
+        [Test]
+        public void UpdateGameWithNullTest()
+        {
+            var updated = new Game();
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithNullNameTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = null,
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectNameTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "",
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithStringEmptyNameTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = String.Empty,
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<NullReferenceException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectPriceTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = -1,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectPriceTest2()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 60000,
+                Rating = 7.8,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectRatingTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 1500,
+                Rating = -1,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectRatingTest2()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 1500,
+                Rating = 11,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectReleaseTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 1500,
+                Rating = 5,
+                Release = 1500,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithIncorrectReleaseTest2()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 1500,
+                Rating = 5,
+                Release = 2500,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        [Test]
+        public void UpdateGameWithLongerThan150NameTest()
+        {
+            var updated = new Game()
+            {
+                GameId = 8,
+                GameName = "This is basically a filling sentence, " +
+                            "that I'm trying to write to test my te" +
+                            "stcases to see if they are working cor" +
+                            "rectly or not. I'm hoping for it that " +
+                            "this will be longer than 150 characters.",
+                Price = 1500,
+                Rating = 5,
+                Release = 2022,
+            };
+
+            try
+            {
+                //ACT
+                logic.Update(updated);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
+        }
+        #endregion
+
+        #region Delete tests
+        [Test]
+        public void DeleteGameWithCorrectIDTest()
+        {
+            //ACT
+            logic.Delete(1);
+
+            //ASSERT
+            mockGameRepo
+                .Verify(d => d.Delete(It.IsAny<int>()), Times.Once);
+        }
+        [Test]
+        public void DeleteGameWithIncorrectIDTest()
+        {
+            try
+            {
+                //ACT
+                logic.Delete(0);
+            }
+            catch { }
+
+            //ASSERT
+            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Delete(0));
+        }
+        #endregion
+
+        #endregion
+
+        #region Non CRUD Methods tests
         [Test]
         public void OldestGameTest()
         {
@@ -196,5 +847,6 @@ namespace I1JM39_HFT_2022231.Test
 
             Assert.AreEqual(expected, actual);
         }
+        #endregion
     }
 }

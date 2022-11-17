@@ -21,7 +21,7 @@ namespace I1JM39_HFT_2022231.Models
         public string GameName { get; set; }
 
         [Required]
-        [Range(0, 20000)]
+        [Range(0, 50000)]
         public double Price { get; set; }
 
         [Required]

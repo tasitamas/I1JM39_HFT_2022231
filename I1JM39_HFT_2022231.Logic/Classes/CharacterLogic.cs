@@ -21,23 +21,25 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Character item)
         {
-            if (item.CharacterName == null)
+            if (item.CharacterName == null 
+                || item.CharacterName == "" 
+                || item.CharacterName == String.Empty)
             {
                 throw new NullReferenceException();
             }
             else if (item.Priority < 1 || item.Priority > 3)
             {
-                throw new ArgumentException("Not a correct priority");
+                throw new ArgumentOutOfRangeException("Not a correct priority");
             }
             else if (item.CharacterName.Length > 50)
             {
-                throw new ArgumentException("The name too long...");
+                throw new ArgumentOutOfRangeException("The name too long...");
             }
             this.repo.Create(item);
         }
         public void Delete(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -45,7 +47,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public Character Read(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -64,13 +66,15 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new NullReferenceException();
             }
-            else if (item.CharacterName == null)
+            else if (item.CharacterName == null
+                    || item.CharacterName == ""
+                    || item.CharacterName == String.Empty)
             {
                 throw new NullReferenceException();
             }
             else if (item.Priority < 1 || item.Priority > 3)
             {
-                throw new ArgumentException("Not a correct priority");
+                throw new ArgumentOutOfRangeException("Not a correct priority");
             }
             else if (item.CharacterId <= 0)
             {
@@ -78,7 +82,7 @@ namespace I1JM39_HFT_2022231.Logic
             }
             else if (item.CharacterName.Length > 50)
             {
-                throw new ArgumentException("The name is too long...");
+                throw new ArgumentOutOfRangeException("The name is too long...");
             }
             else
             {

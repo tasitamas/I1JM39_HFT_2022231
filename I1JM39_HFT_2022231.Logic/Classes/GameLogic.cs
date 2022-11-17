@@ -32,11 +32,13 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Game item)
         {
-            if (item.GameName == null)
+            if (    item.GameName == null
+                ||  item.GameName == ""
+                ||  item.GameName == String.Empty)
             {
                 throw new NullReferenceException();
             }
-            else if (item.Price < 0 || item.Price > 20000)
+            else if (item.Price < 0 || item.Price > 50000)
             {
                 throw new ArgumentOutOfRangeException("Not a correct price");
             }
@@ -48,6 +50,10 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new ArgumentOutOfRangeException("Not a correct release date");
             }
+            else if (item.GameName.Length > 150)
+            {
+                throw new ArgumentOutOfRangeException("The name is too long...");
+            }
             else
             {
                 gameRepo.Create(item);
@@ -55,7 +61,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Delete(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -66,7 +72,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public Game Read(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -85,7 +91,9 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new NullReferenceException();
             }
-            else if (item.GameName == null)
+            else if (item.GameName == null
+                || item.GameName == ""
+                || item.GameName == String.Empty)
             {
                 throw new NullReferenceException();
             }
@@ -101,12 +109,18 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new ArgumentOutOfRangeException("Not a correct release date");
             }
+            else if (item.GameName.Length > 150)
+            {
+                throw new ArgumentOutOfRangeException("The name is too long...");
+            }
             else
             {
                 gameRepo.Update(item);
             }
         }
 
+        
+        
         //Non CRUD Methods
         public IEnumerable<BasicGameInfo> OldestGameWithDeveloperName()
         {

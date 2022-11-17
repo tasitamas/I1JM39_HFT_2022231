@@ -18,13 +18,15 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Developer item)
         {
-            if (item.DeveloperName == null)
+            if (    item.DeveloperName == null
+                ||  item.DeveloperName == ""
+                ||  item.DeveloperName == String.Empty)
             {
                 throw new NullReferenceException();
             }
             else if (item.DeveloperName.Length > 100)
             {
-                throw new ArgumentException("The name is too long...");
+                throw new ArgumentOutOfRangeException("The name is too long...");
             }
             else
             { 
@@ -33,7 +35,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Delete(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -44,7 +46,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public Developer Read(int id)
         {
-            if (id < 0)
+            if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -63,7 +65,9 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new NullReferenceException();
             }
-            else if (item.DeveloperName == null)
+            else if (item.DeveloperName == null
+                || item.DeveloperName == ""
+                || item.DeveloperName == String.Empty)
             {
                 throw new NullReferenceException();
             }
@@ -73,7 +77,7 @@ namespace I1JM39_HFT_2022231.Logic
             }
             else if (item.DeveloperName.Length > 100)
             {
-                throw new ArgumentException("The name is too long...");
+                throw new ArgumentOutOfRangeException("The name is too long...");
             }
             else
             {
