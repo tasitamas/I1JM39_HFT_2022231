@@ -3,8 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using I1JM39_HFT_2022231.Models;
 using ConsoleTools;
-using I1JM39_HFT_2022231.Repository;
-using I1JM39_HFT_2022231.Logic;
 
 namespace I1JM39_HFT_2022231.Client
 {
@@ -117,43 +115,28 @@ namespace I1JM39_HFT_2022231.Client
             }
         }
         #endregion
-        #region Non-CRUD
 
+        #region Non-CRUD
+        static void HighestRatedGame(string entity)
+        {
+            Console.WriteLine("The highest rated game: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine($"{item}");
+            }
+            Console.ReadLine();
+        }
         #endregion
+
         static void Main(string[] args)
         {
-            rest = new RestService("http://localhost:23247/","game");
+            RestService rs = new RestService("http://localhost:23247/");
 
-            #region Console Menu
-            var gameSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Game"))
-                .Add("Create", () => Create("Game"))
-                .Add("Delete", () => Delete("Game"))
-                .Add("Update", () => Update("Game"))
-                .Add("Back", ConsoleMenu.Close);
+            rsMenu menu = new rsMenu(rs);
 
-            var devSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Developer"))
-                .Add("Create", () => Create("Developer"))
-                .Add("Delete", () => Delete("Developer"))
-                .Add("Update", () => Update("Developer"))
-                .Add("Back", ConsoleMenu.Close);
-
-            var characterSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Character"))
-                .Add("Create", () => Create("Character"))
-                .Add("Delete", () => Delete("Character"))
-                .Add("Update", () => Update("Character"))
-                .Add("Back", ConsoleMenu.Close);
-
-            var menu = new ConsoleMenu(args, level: 0)
-                .Add("Game", () => gameSubMenu.Show())
-                .Add("Developer", () => devSubMenu.Show())
-                .Add("Character", () => characterSubMenu.Show())
-                .Add("Exit", ConsoleMenu.Close);
-
-            menu.Show();
-            #endregion
+            menu.MenuStart();
+         
         }
     }
 }
