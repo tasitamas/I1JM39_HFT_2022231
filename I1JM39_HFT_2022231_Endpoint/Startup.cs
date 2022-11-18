@@ -2,7 +2,9 @@ using I1JM39_HFT_2022231.Logic;
 using I1JM39_HFT_2022231.Models;
 using I1JM39_HFT_2022231.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +30,7 @@ namespace I1JM39_HFT_2022231_Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<GameDbContext>();
+            services.AddTransient<GameDbContext>();
 
             services.AddTransient<IRepository<Game>, GameRepository>();
             services.AddTransient<IRepository<Developer>, DeveloperRepository>();
@@ -54,6 +56,15 @@ namespace I1JM39_HFT_2022231_Endpoint
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "I1JM39_HFT_2022231_Endpoint v1"));
             }
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                    .Get<IExceptionHandlerPathFeature>()
+                    .Error;
+                var response = new { Msg = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseRouting();
 
