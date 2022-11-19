@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,29 @@ namespace I1JM39_HFT_2022231.Client
     {
         HttpClient client;
 
-        public RestService(string baseurl)
+        public RestService(string baseurl, string pingableEndpoint = "swagger")
         {
+            bool isOk = false;
+            do
+            {
+                isOk = Ping(baseurl + pingableEndpoint);
+            } while (isOk == false);
             Init(baseurl);
         }
 
+        private bool Ping(string url)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.DownloadData(url);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private void Init(string baseurl)
         {
             client = new HttpClient();
@@ -42,6 +61,11 @@ namespace I1JM39_HFT_2022231.Client
             {
                 items = response.Content.ReadAsAsync<List<T>>().GetAwaiter().GetResult();
             }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
             return items;
         }
         public T GetSingle<T>(string endpoint)
@@ -51,6 +75,11 @@ namespace I1JM39_HFT_2022231.Client
             if (response.IsSuccessStatusCode)
             {
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
+            }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
             }
             return item;
         }
@@ -62,6 +91,11 @@ namespace I1JM39_HFT_2022231.Client
             {
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
             }
+            else
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
             return item;
         }
         public void Post<T>(T item, string endpoint)
@@ -69,12 +103,23 @@ namespace I1JM39_HFT_2022231.Client
             HttpResponseMessage response =
                 client.PostAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
 
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
             response.EnsureSuccessStatusCode();
         }
         public void Delete(int id, string endpoint)
         {
             HttpResponseMessage response =
                 client.DeleteAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
 
             response.EnsureSuccessStatusCode();
         }
@@ -83,8 +128,22 @@ namespace I1JM39_HFT_2022231.Client
             HttpResponseMessage response =
                 client.PutAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
 
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                throw new ArgumentException(error.Msg);
+            }
 
             response.EnsureSuccessStatusCode();
         }
+
+    }
+    public class RestExceptionInfo
+    {
+        public RestExceptionInfo()
+        {
+
+        }
+        public string Msg { get; set; }
     }
 }

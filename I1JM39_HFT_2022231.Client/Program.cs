@@ -9,62 +9,97 @@ namespace I1JM39_HFT_2022231.Client
     internal class Program
     {
         static RestService rest;
+        
         #region CRUD
         static void Create(string entity)
         {
-            if (entity == "Game")
+            Console.Clear();
+            Console.WriteLine("Enter the requested param(s): ");
+            if (entity.ToLower() == "game")
             {
-                Console.Write("Enter game name:");
+                Console.Write("GameID: ");
+                int gameId = int.Parse(Console.ReadLine());
+                Console.Write("Name: ");
                 string name = Console.ReadLine();
-                rest.Post(new Game() { GameName = name }, "game");
+                Console.Write("Price: ");
+                double price = double.Parse(Console.ReadLine());
+                Console.Write("Rating: ");
+                double rating = double.Parse(Console.ReadLine());
+                Console.Write("Release: ");
+                int release = int.Parse(Console.ReadLine());
+                
+                rest.Post(new Game() { GameId = gameId ,GameName = name, Price = price, Rating = rating, Release = release }, "game");
             }
-            else if (entity == "Developer")
+            else if (entity.ToLower() == "developer")
             {
-                Console.Write("Enter a developer name:");
+                Console.Write("DeveloperID: ");
+                int devId = int.Parse(Console.ReadLine());
+                Console.Write("Name: ");
                 string name = Console.ReadLine();
-                rest.Post(new Developer() { DeveloperName = name }, "developer");
+                Console.Write("GameID: ");
+                int gameId = int.Parse(Console.ReadLine());
+                rest.Post(new Developer() { DeveloperId = devId , DeveloperName = name, GameId = gameId }, "developer");
             }
-            else if (entity == "Character")
+            else if (entity.ToLower() == "character")
             {
-
-                Console.Write("Enter a character name:");
+                Console.Write("CharactedID: ");
+                int charId = int.Parse(Console.ReadLine());
+                Console.Write("Name: ");
                 string name = Console.ReadLine();
-                rest.Post(new Character() { CharacterName = name }, "character");
+                Console.Write("Priority: ");
+                int priority = int.Parse(Console.ReadLine());
+                Console.Write("GameID: ");
+                int gameId = int.Parse(Console.ReadLine());
+                rest.Post(new Character() { CharacterId = charId , CharacterName = name, Priority = priority, GameId = gameId }, "character");
             }
+            Console.WriteLine("\n" + entity.ToUpper() + " added successfully!");
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
         }
-        static void List(string entity)
+        static void ReadAll<T>(List<T> list, string entity)
         {
-            if (entity == "Game")
+            Console.Clear();
+            Console.WriteLine($"List of {entity.ToUpper()}'s in the database: \n");
+            foreach (var item in list)
             {
-                List<Game> games = rest.Get<Game>("game");
-                foreach (var item in games)
-                {
-                    Console.WriteLine($"{item.GameId}: {item.GameName}");
-                }
+                Console.WriteLine(item.ToString());
             }
-            else if (entity == "Developer")
-            {
-                List<Developer> devs = rest.Get<Developer>("developer");
-                foreach (var item in devs)
-                {
-                    Console.WriteLine($"{item.DeveloperId}: {item.DeveloperName}");
-                }
-            }
-            else if (entity == "Character")
-            {
-                List<Character> characters = rest.Get<Character>("character");
-                foreach (var item in characters)
-                {
-                    Console.WriteLine($"{item.CharacterId}: {item.CharacterName}");
-                }
-            }
-            Console.ReadLine();
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
+        }
+        static void ReadGame<T>(T item)
+        {
+            Console.Clear();
+            Console.WriteLine("ID of the required item: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine(rest.Get<Game>(id,"game").ToString());
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
+        }
+        static void ReadCharacter<T>(T item)
+        {
+            Console.Clear();
+            Console.WriteLine("ID of the required item: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine(rest.Get<Character>(id, "character").ToString());
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
+        }
+        static void ReadDeveloper<T>(T item)
+        {
+            Console.Clear();
+            Console.WriteLine("ID of the required item: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine(rest.Get<Developer>(id, "developer").ToString());
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
         }
         static void Update(string entity)
         {
-            if (entity == "Game")
+            Console.WriteLine("Enter the requested param(s): ");
+            if (entity.ToLower() == "game")
             {
-                Console.Write("Enter Game's id to update: ");
+                Console.Write("Enter the id of the game, that you want to update: ");
                 int id = int.Parse(Console.ReadLine());
                 Game one = rest.Get<Game>(id, "game");
                 Console.Write($"New name [old: {one.GameName}]: ");
@@ -72,9 +107,9 @@ namespace I1JM39_HFT_2022231.Client
                 one.GameName = name;
                 rest.Put(one, "game");
             }
-            else if (entity == "Developer")
+            else if (entity.ToLower() == "developer")
             {
-                Console.Write("Enter Dev's id to update: ");
+                Console.Write("Enter the id of the developer, that you want to update: ");
                 int id = int.Parse(Console.ReadLine());
                 Developer one = rest.Get<Developer>(id, "developer");
                 Console.Write($"New name [old: {one.DeveloperName}]: ");
@@ -82,9 +117,9 @@ namespace I1JM39_HFT_2022231.Client
                 one.DeveloperName = name;
                 rest.Put(one, "developer");
             }
-            else if (entity == "Character")
+            else if (entity.ToLower() == "character")
             {
-                Console.Write("Enter Character's id to update: ");
+                Console.Write("Enter the id of the character, that you want to update: ");
                 int id = int.Parse(Console.ReadLine());
                 Character one = rest.Get<Character>(id, "character");
                 Console.Write($"New name [old: {one.CharacterName}]: ");
@@ -92,27 +127,36 @@ namespace I1JM39_HFT_2022231.Client
                 one.CharacterName = name;
                 rest.Put(one, "character");
             }
+            Console.WriteLine("\n" + entity.ToUpper() + " updated successfully!");
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
         }
         static void Delete(string entity)
         {
-            if (entity == "Game")
+            if (entity.ToLower() == "game")
             {
-                Console.Write("Enter Game's id to delete: ");
+                Console.Clear();
+                Console.Write("Enter the game id, that you want to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "game");
             }
-            else if (entity == "Developer")
+            else if (entity.ToLower() == "developer")
             {
-                Console.Write("Enter Dev's id to delete: ");
+                Console.Clear();
+                Console.Write("Enter the developer id, that you want to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "developer");
             }
-            else if (entity == "Character")
+            else if (entity.ToLower() == "character")
             {
-                Console.Write("Enter Character's id to delete: ");
+                Console.Clear();
+                Console.Write("Enter the character id, that you want to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "character");
             }
+            Console.WriteLine($"\n{entity.ToUpper()} deleted succcessfully!");
+            Console.Write("\nPress a button to continue...");
+            Console.ReadKey();
         }
         #endregion
 
@@ -123,7 +167,77 @@ namespace I1JM39_HFT_2022231.Client
             var games = rest.Get<object>(entity);
             foreach (var item in games)
             {
-                Console.WriteLine($"{item}");
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void LowestRatedGame(string entity)
+        {
+            Console.WriteLine("The lowest rated game: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void OldestGame(string entity)
+        {
+            Console.WriteLine("The oldest game: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void YoungestGame(string entity)
+        {
+            Console.WriteLine("The youngest game: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void FreeGames(string entity)
+        {
+            Console.WriteLine("The list of free game(s): ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void PaidGames(string entity)
+        {
+            Console.WriteLine("The list of paid game(s): ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void OlderThan10(string entity)
+        {
+            Console.WriteLine("The list of game(s) that are older, than 10 years: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+        static void GamesCharactersCount(string entity)
+        {
+            Console.WriteLine("The count of each game's characters: ");
+            var games = rest.Get<object>(entity);
+            foreach (var item in games)
+            {
+                Console.WriteLine(item.ToString());
             }
             Console.ReadLine();
         }
@@ -131,12 +245,59 @@ namespace I1JM39_HFT_2022231.Client
 
         static void Main(string[] args)
         {
-            RestService rs = new RestService("http://localhost:23247/");
+            rest  = new RestService("http://localhost:23247/","game");
 
-            rsMenu menu = new rsMenu(rs);
+            ConsoleMenu menu = new ConsoleMenu();
 
-            menu.MenuStart();
-         
+            menu.Add("Game",
+                () => new ConsoleMenu()
+                .Add("Create", () => Create("game"))
+                .Add("List", () => ReadAll<Game>(rest.Get<Game>("game"),"game"))
+                .Add("Read by ID", () => ReadGame("game"))
+                .Add("Update", () => Update("game"))
+                .Add("Delete", () => Delete("game"))
+                .Add("Go back to main menu", ConsoleMenu.Close)
+                .Show()
+                );
+
+            menu.Add("Developer",
+                () => new ConsoleMenu()
+                .Add("Create", () => Create("developer"))
+                .Add("List", () => ReadAll<Developer>(rest.Get<Developer>("developer"), "developer"))
+                .Add("Read by ID", () => ReadDeveloper("developer"))
+                .Add("Update", () => Update("developer"))
+                .Add("Delete", () => Delete("developer"))
+                .Add("Go back to main menu", ConsoleMenu.Close)
+                .Show()
+                );
+
+            menu.Add("Character",
+                () => new ConsoleMenu()
+                .Add("Create", () => Create("character"))
+                .Add("List", () => ReadAll<Character>(rest.Get<Character>("character"), "character"))
+                .Add("Read by ID", () => ReadCharacter("character"))
+                .Add("Update", () => Update("character"))
+                .Add("Delete", () => Delete("character"))
+                .Add("Go back to main menu", ConsoleMenu.Close)
+                .Show()
+                );
+
+            menu.Add("Non CRUD Methods",
+                () => new ConsoleMenu()
+                .Add("Highest rated game", () => HighestRatedGame("stat/highestratedgame"))
+                .Add("Lowest rated game", () => LowestRatedGame("stat/lowestratedgame"))
+                .Add("List of 10 years older games", () => OlderThan10("stat/olderthan10"))
+                .Add("Character count per game", () => GamesCharactersCount("stat/gamescharacterscount"))
+                .Add("Oldest game", () => OldestGame("stat/oldestgame"))
+                .Add("Youngest game", () => YoungestGame("stat/youngestgame"))
+                .Add("List of free games", () => FreeGames("stat/freegames"))
+                .Add("List of paid games", () => PaidGames("stat/paidgames"))
+                .Add("Go back to main menu", ConsoleMenu.Close)
+                .Show()
+                );
+            menu.Add("Exit", ConsoleMenu.Close);
+
+            menu.Show();
         }
     }
 }
