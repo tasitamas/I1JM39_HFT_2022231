@@ -32,9 +32,6 @@ namespace I1JM39_HFT_2022231.Models
         [Range(1900,2030)]
         public int Release { get; set; }
 
-        [ForeignKey(nameof(Developer))]
-        public int DeveloperId { get; set; }
-
         [NotMapped]
         [JsonIgnore]
         public virtual Developer Developer { get; set; }
@@ -43,7 +40,10 @@ namespace I1JM39_HFT_2022231.Models
         [JsonIgnore]
         public virtual ICollection<Character> Characters { get; set; }
 
-        public Game() { }
+        public Game() 
+        {
+            Characters = new HashSet<Character>();
+        }
         public Game(string line)
         {
             string[] split = line.Split('#');
@@ -52,7 +52,7 @@ namespace I1JM39_HFT_2022231.Models
             Price = double.Parse(split[2]);
             Rating = double.Parse(split[3]);
             Release = int.Parse(split[4]);
-            DeveloperId = int.Parse(split[5]);
+            Characters = new HashSet<Character>();
         }
 
         public override string ToString()

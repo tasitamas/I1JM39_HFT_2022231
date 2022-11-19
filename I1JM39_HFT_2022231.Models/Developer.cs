@@ -20,20 +20,22 @@ namespace I1JM39_HFT_2022231.Models
         [StringLength(100)]
         public string DeveloperName { get; set; }
 
+        [ForeignKey(nameof(Game))]
+        public int GameId { get; set; }
+
         [NotMapped]
         [JsonIgnore]
-        public virtual ICollection<Game> Games { get; set; }
+        public virtual Game Game { get; set; }
 
         public Developer()
         {
-            Games = new HashSet<Game>();
         }
         public Developer(string line)
         {
             string[] split = line.Split('#');
             DeveloperId = int.Parse(split[0]);
             DeveloperName = split[1];
-            Games = new HashSet<Game>();
+            GameId = int.Parse(split[2]);
         }
 
         public override string ToString()
