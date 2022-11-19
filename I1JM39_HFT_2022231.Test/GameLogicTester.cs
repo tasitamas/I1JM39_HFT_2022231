@@ -26,46 +26,115 @@ namespace I1JM39_HFT_2022231.Test
             mockDevRepo = new Mock<IRepository<Developer>>();
             mockCharRepo = new Mock<IRepository<Character>>();
 
-            mockGameRepo.Setup(g => g.ReadAll()).Returns(new List<Game>()
+            var chars1 = new List<Character>()
             {
-                new Game("1#Counter Strike:Global Offensive#3500#8.0#2012#1"),
-                new Game("2#VALORANT#0.00#9.2#2020#2"),
-                new Game("3#World Of Warcraft#10000#8.1#2004#3"),
-                new Game("4#League of Legends#0.00#5.0#2009#2"),
-                new Game("5#Half Life#1500#9.5#1998#1"),
-                new Game("6#Team Fortress 2#0.00#7.9#2007#1"),
-                new Game("7#Rocket League#3000#9.7#2015#4"),
-            }.AsQueryable());
-
-            mockDevRepo.Setup(d => d.ReadAll()).Returns(new List<Developer>()
+                new Character("1#Test Character0#1#1"),
+                new Character("2#Test Character1#2#1"),
+                new Character("3#Test Character2#2#1"),
+            };
+            var chars2 = new List<Character>()
             {
-                new Developer("1#Valve Corporation"),
-                new Developer("2#Riot Games Inc."),
-                new Developer("3#Blizzard Entertainment"),
-                new Developer("4#Psyonix Inc."),
-                new Developer("5#Behaviour Interactive"),
-                new Developer("6#Rockstar Games")
-            }.AsQueryable());
-
-            mockCharRepo.Setup(c => c.ReadAll()).Returns(new List<Character>()
+                new Character("4#Test Character3#1#2"),
+                new Character("5#Test Character4#2#2"),
+                new Character("6#Test Character5#3#2"),
+            };
+            var chars3 = new List<Character>()
             {
-                new Character("1#Counter Terrorist#1#1"),
-                new Character("2#Terrorist#1#1"),
+                new Character("7#Test Character6#3#3"),
+                new Character("8#Test Character7#2#3"),
+                new Character("9#Test Character8#3#3"),
+                new Character("10#Test Character8#3#3"),
+            };
 
-                new Character("3#Jett#2#2"),
-                new Character("6#Omen#1#2"),
+            Developer dev1 = new Developer
+            {
+                DeveloperId = 1,
+                DeveloperName = "Test Developer 1",
+                GameId = 1,
+            };
+            Developer dev2 = new Developer
+            {
+                DeveloperId = 2,
+                DeveloperName = "Test Developer 2",
+                GameId = 2,
+            };
+            Developer dev3 = new Developer
+            {
+                DeveloperId = 3,
+                DeveloperName = "Test Developer 3",
+                GameId = 3,
+            };
+            var devs = new List<Developer>() { dev1, dev2, dev2 }.AsQueryable();
 
+            Game game1 = new Game
+            {
+                GameId = 1,
+                GameName = "Test Game",
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
+                Developer = dev1,
+                Characters = chars1,
+            };
+            Game game2 = new Game
+            {
+                GameId = 2,
+                GameName = "Test Game 2",
+                Price = 0,
+                Rating = 9.2,
+                Release = 2000,
+                Developer = dev2,
+                Characters = chars2,
+            };
+            Game game3 = new Game
+            {
+                GameId = 3,
+                GameName = "Test Game 3",
+                Price = 20000,
+                Rating = 5.7,
+                Release = 2011,
+                Developer = dev3,
+                Characters = chars3,
+            };
+            var games = new List<Game>() { game1, game2, game3 }.AsQueryable();
 
-                new Character("12#Kil'jaeden#2#3"),
-                new Character("13#Archimonde#2#3"),
-                new Character("16#Headless Horseman#3#3"),
-                new Character("17#Chub#3#3"),
+            dev1.Game = game1;
+            dev2.Game = game2;
+            dev3.Game = game3;
 
-                new Character("23#G-Man#1#5"),
-                new Character("24#Wallace Breen#3#5"),
+            foreach (var item in chars1)
+            {
+                item.Game = game1;
+            }
+            foreach (var item in chars2)
+            {
+                item.Game = game2;
+            }
+            foreach (var item in chars3)
+            {
+                item.Game = game3;
+            }
 
+            var cs = new List<Character>();
+            foreach (var item in chars1)
+            {
+                cs.Add(item);
+            }
+            foreach (var item in chars2)
+            {
+                cs.Add(item);
+            }
+            foreach (var item in chars3)
+            {
+                cs.Add(item);
+            }
 
-            }.AsQueryable());
+            var characters = cs.AsQueryable();
+            mockDevRepo.Setup(d => d.ReadAll()).Returns(devs);
+            mockCharRepo.Setup(c => c.ReadAll()).Returns(characters);
+
+            mockGameRepo.Setup(g => g.Create(It.IsAny<Game>()));
+            mockGameRepo.Setup(g => g.ReadAll()).Returns(games);
 
             logic = new GameLogic(mockGameRepo.Object, mockDevRepo.Object, mockCharRepo.Object);
         }
@@ -77,13 +146,13 @@ namespace I1JM39_HFT_2022231.Test
         public void CreateGameWithCorrectNameTest()
         {
             var created = new Game()
-                { 
-                    GameId = 8,
-                    GameName = "Overwatch 2",
-                    Price = 0.00,
-                    Rating = 7.8,
-                    Release = 2022,
-                };
+            {
+                GameId = 8,
+                GameName = "Overwatch 2",
+                Price = 0.00,
+                Rating = 7.8,
+                Release = 2022,
+            };
 
             //ACT
             logic.Create(created);
@@ -296,7 +365,7 @@ namespace I1JM39_HFT_2022231.Test
             var created = new Game()
             {
                 GameId = 8,
-                GameName =  "This is basically a filling sentence, " +
+                GameName = "This is basically a filling sentence, " +
                             "that I'm trying to write to test my te" +
                             "stcases to see if they are working cor" +
                             "rectly or not. I'm hoping for it that " +
@@ -324,64 +393,32 @@ namespace I1JM39_HFT_2022231.Test
         {
             #region Expected
             var expected = new Game[]
-                { 
-                    new Game()
+                {
+                    new Game
                     {
                         GameId = 1,
-                        GameName = "Counter Strike:Global Offensive",
-                        Price = 3500,
-                        Rating = 8.0,
-                        Release = 2012,
-                    },
-                    new Game()
-                    {
-                        GameId = 2,
-                        GameName = "VALORANT",
-                        Price = 0.00,
-                        Rating = 9.2,
+                        GameName = "Test Game",
+                        Price = 5000,
+                        Rating = 7.1,
                         Release = 2020,
                     },
-                    new Game()
+                    new Game
+                    {
+                        GameId = 2,
+                        GameName = "Test Game 2",
+                        Price = 0,
+                        Rating = 9.2,
+                        Release = 2000,
+                    },
+                    new Game
                     {
                         GameId = 3,
-                        GameName = "World Of Warcraft",
-                        Price = 10000,
-                        Rating = 8.1,
-                        Release = 2004,
+                        GameName = "Test Game 3",
+                        Price = 20000,
+                        Rating = 5.7,
+                        Release = 2011,
                     },
-                    new Game()
-                    {
-                        GameId = 1,
-                        GameName = "League of Legends",
-                        Price = 0.00,
-                        Rating = 5.0,
-                        Release = 2009,
-                    },
-                    new Game()
-                    {
-                        GameId = 5,
-                        GameName = "Half Life",
-                        Price = 1500,
-                        Rating = 9.5,
-                        Release = 1998,
-                    },
-                    new Game()
-                    {
-                        GameId = 6,
-                        GameName = "Team Fortress 2",
-                        Price = 0.00,
-                        Rating = 7.9,
-                        Release = 2007,
-                    },
-                    new Game()
-                    {
-                        GameId = 1,
-                        GameName = "Rocket League",
-                        Price = 3000,
-                        Rating = 9.7,
-                        Release = 2015,
-                    },
-                }.AsQueryable();
+        }.AsQueryable();
             #endregion
             mockGameRepo
                    .Setup(d => d.ReadAll())
@@ -399,13 +436,13 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void ReadGameWithCorrectIDTest()
         {
-            Game expected = new Game()
+            var expected = new Game
             {
                 GameId = 1,
-                GameName = "Counter Strike:Global Offensive",
-                Price = 3500,
-                Rating = 8.0,
-                Release = 2012
+                GameName = "Test Game",
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             mockGameRepo
@@ -438,11 +475,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 0.00,
-                Rating = 7.8,
-                Release = 2022,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             //ACT
@@ -471,11 +508,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
+                GameId = 1,
                 GameName = null,
-                Price = 0.00,
-                Rating = 7.8,
-                Release = 2022,
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             try
@@ -493,11 +530,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
+                GameId = 1,
                 GameName = "",
-                Price = 0.00,
-                Rating = 7.8,
-                Release = 2022,
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             try
@@ -515,11 +552,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
+                GameId = 1,
                 GameName = String.Empty,
-                Price = 0.00,
-                Rating = 7.8,
-                Release = 2022,
+                Price = 5000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             try
@@ -537,11 +574,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
+                GameId = 1,
+                GameName = "Test Game 3",
                 Price = -1,
-                Rating = 7.8,
-                Release = 2022,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             try
@@ -559,11 +596,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 60000,
-                Rating = 7.8,
-                Release = 2022,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 500000,
+                Rating = 7.1,
+                Release = 2020,
             };
 
             try
@@ -581,11 +618,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 1500,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 5000,
                 Rating = -1,
-                Release = 2022,
+                Release = 2020,
             };
 
             try
@@ -603,11 +640,11 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 1500,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 5000,
                 Rating = 11,
-                Release = 2022,
+                Release = 2020,
             };
 
             try
@@ -625,10 +662,10 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 1500,
-                Rating = 5,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 5000,
+                Rating = 7.1,
                 Release = 1500,
             };
 
@@ -647,10 +684,10 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Game()
             {
-                GameId = 8,
-                GameName = "Overwatch 2",
-                Price = 1500,
-                Rating = 5,
+                GameId = 1,
+                GameName = "Test Game 3",
+                Price = 5000,
+                Rating = 7.1,
                 Release = 2500,
             };
 
@@ -722,128 +759,109 @@ namespace I1JM39_HFT_2022231.Test
 
         #region Non CRUD Methods tests
         [Test]
+        public void HighestRatingGameTest()
+        {
+            var expected = logic.HighestRatingGameWithDevName().ToList();
+
+            Assert.That(expected[0], Is.EqualTo(new KeyValuePair<string, string>("Test Game 2", "Test Developer 2")));
+        }
+        [Test]
+        public void LowestRatingGameTest()
+        {
+            var expected = logic.LowestRatingGameWithDevName().ToList();
+
+            Assert.That(expected[0], Is.EqualTo(new KeyValuePair<string, string>("Test Game 3", "Test Developer 3")));
+        }
+        [Test]
         public void OldestGameTest()
         {
             var actual = logic.OldestGameWithDeveloperName().ToList();
-            var expected = new List<BasicGameInfo>()
-            {
-                new BasicGameInfo()
-                { 
-                    GameName = "Half Life",
-                    DevName = "Valve Corporation",
-                    Age = 24,
-                }
-            };
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual[0].GetHashCode(), Is.EqualTo(new { _GameName = "Test Game 2", _DevName = "Test Developer 2", _Age = 22 }.GetHashCode()));
         }
         [Test]
         public void YoungestGameTest()
         {
             var actual = logic.YoungestGameWithDeveloperName().ToList();
-            var expected = new List<BasicGameInfo>()
-            {
-                new BasicGameInfo()
-                {
-                    GameName = "VALORANT",
-                    DevName = "Riot Games Inc.",
-                    Age = 2,
-                }
-            };
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual[0].GetHashCode(), Is.EqualTo(new { _GameName = "Test Game", _DevName = "Test Developer 1", _Age = 2 }.GetHashCode()));
         }
         [Test]
-        public void OlderThan10GamesTest()
+        public void OlderThan10YearsGamesTest()
         {
             var actual = logic.OlderThan10YearsGames().ToList();
-
-            var expected = new List<BasicGameInfo>()
+            var expected = new List<GameInfo>()
             {
-                new BasicGameInfo()
+                new GameInfo()
                 {
-                    DevName = "Blizzard Entertainment",
-                    GameName = "World Of Warcraft",
-                    Age = (int)DateTime.Now.Year - 2004,
+                    GameName = "Test Game 2",
+                    DevName = "Test Developer 2",
+                    Age = 22,
                 },
-                new BasicGameInfo()
+                new GameInfo()
                 {
-                    DevName = "Riot Games Inc.",
-                    GameName = "League of Legends",
-                    Age = (int)DateTime.Now.Year - 2009,
-                },
-                new BasicGameInfo()
-                {
-                    DevName = "Valve Corporation",
-                    GameName = "Half Life",
-                    Age = (int)DateTime.Now.Year - 1998,
-                },
-                new BasicGameInfo()
-                {
-                    DevName = "Valve Corporation",
-                    GameName = "Team Fortress 2",
-                    Age = (int)DateTime.Now.Year - 2007,
-                }
-            };
-
-            Assert.AreEqual(expected, actual);
-        }
-        [Test]
-        public void GamesWithNPCTest()
-        {
-            var actual = logic.GamesWithNpc().ToList();
-
-            var expected = new List<BasicGameInfo>()
-            { 
-                new BasicGameInfo()
-                { 
-                    DevName = "Blizzard Entertainment",
-                    GameName = "World Of Warcraft",
-                    Age = 18,
-                },
-                new BasicGameInfo()
-                { 
-                    DevName = "Valve Corporation",
-                    GameName = "Half Life",
-                    Age = 24,
+                    GameName = "Test Game 3",
+                    DevName = "Test Developer 3",
+                    Age = 11,
                 },
             };
 
             Assert.AreEqual(expected, actual);
         }
         [Test]
-        public void HighestRatingGameTest()
+        public void FreeGamesTest()
         {
-            var actual = logic.HighestRatingGameWithDevName().ToList();
-
             var expected = new List<RatingInfo>()
             {
                 new RatingInfo()
                 {
-                    GameName = "Rocket League",
-                    DevName = "Psyonix Inc.",
-                    Rating = 9.7,
-                    Price = 3000,
+                    GameName = "Test Game 2",
+                    DevName = "Test Developer 2",
+                    Rating = 9.2
                 }
             };
 
-            Assert.AreEqual(expected,actual);
+            var actual = logic.FreeGames().ToList();
+
+            Assert.AreEqual(expected, actual);
         }
         [Test]
-        public void LowestRatingGameTest()
+        public void PaidGamesTest()
         {
-            var actual = logic.LowestRatingGameWithDevName().ToList();
-
             var expected = new List<RatingInfo>()
             {
                 new RatingInfo()
                 {
-                    GameName = "League of Legends",
-                    DevName = "Riot Games Inc.",
-                    Rating = 5.0,
-                    Price = 0,
+                    GameName = "Test Game",
+                    DevName = "Test Developer 1",
+                    Rating = 7.1
+                },
+                new RatingInfo()
+                {
+                    GameName = "Test Game 3",
+                    DevName = "Test Developer 3",
+                    Rating = 5.7
                 }
             };
+
+            var actual = logic.PaidGames().ToList();
+
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void GamesCharactersCountTest()
+        {
+            var expected = new List<KeyValuePair<string, int>>()
+            {
+                new KeyValuePair<string, int>
+                ("Test Game 3", 4),
+                new KeyValuePair<string, int>
+                ("Test Game", 3),
+                new KeyValuePair<string, int>
+                ("Test Game 2", 3)
+            };
+
+            var actual = logic.GamesCharactersCount().ToList();
 
             Assert.AreEqual(expected, actual);
         }

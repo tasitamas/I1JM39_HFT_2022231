@@ -29,7 +29,7 @@ namespace I1JM39_HFT_2022231.Models
 
         [NotMapped]
         [JsonIgnore]
-        public virtual Game Game { get; private set; }
+        public virtual Game Game { get; set; }
 
         public Character() { }
         public Character(string line)

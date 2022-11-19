@@ -22,16 +22,45 @@ namespace I1JM39_HFT_2022231.Test
         public void Init()
         {
             mockRepo = new Mock<IRepository<Character>>();
-            mockRepo.Setup(c => c.ReadAll()).Returns(new List<Character>()
+
+            var chars1 = new List<Character>()
             {
-                new Character("1#Counter Terrorist#1#1"),
-                new Character("2#Terrorist#1#1"),
-                new Character("3#Jett#2#2"),
-                new Character("4#Reyna#2#2"),
-                new Character("5#Raze#1#2"),
-                new Character("6#Omen#1#2"),
-                new Character("7#Brimstone#1#2"),
-            }.AsQueryable());
+                new Character("1#Test Character0#1#1"),
+                new Character("2#Test Character1#2#1"),
+                new Character("3#Test Character2#2#1"),
+            };
+            var chars2 = new List<Character>()
+            {
+                new Character("4#Test Character3#1#2"),
+                new Character("5#Test Character4#2#2"),
+                new Character("6#Test Character5#3#2"),
+            };
+            var chars3 = new List<Character>()
+            {
+                new Character("7#Test Character6#3#3"),
+                new Character("8#Test Character7#2#3"),
+                new Character("9#Test Character8#3#3"),
+            };
+
+            var cs = new List<Character>();
+            foreach (var item in chars1)
+            {
+                cs.Add(item);
+            }
+            foreach (var item in chars2)
+            {
+                cs.Add(item);
+            }
+            foreach (var item in chars3)
+            {
+                cs.Add(item);
+            }
+
+            var characters = cs.AsQueryable();
+
+            mockRepo.Setup(g => g.Create(It.IsAny<Character>()));
+            mockRepo.Setup(c => c.ReadAll()).Returns(characters);
+
             logic = new CharacterLogic(mockRepo.Object);
         }
 
@@ -39,10 +68,12 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithCorrectNameTest()
         {
-            var created = new Character() 
-            { 
-                CharacterName = "Michael Myers", 
-                Priority = 1 
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = "Test Character 1",
+                Priority = 1,
+                GameId = 1,
             };
 
             //ACT
@@ -54,10 +85,12 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithNullNameTest()
         {
-            var created = new Character() 
-            { 
-                CharacterName = "", 
-                Priority = 1 
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = null,
+                Priority = 1,
+                GameId = 1,
             };
 
             try
@@ -73,7 +106,13 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithStringEmptyNameTest()
         {
-            var created = new Character() { CharacterName = null, Priority = 1 };
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = String.Empty,
+                Priority = 1,
+                GameId = 1,
+            };
 
             try
             {
@@ -88,7 +127,13 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithIncorrectNameTest()
         {
-            var created = new Character() { CharacterName = String.Empty, Priority = 1 };
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = "",
+                Priority = 1,
+                GameId = 1,
+            };
 
             try
             {
@@ -105,10 +150,12 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Character()
             {
+                CharacterId = 6,
                 CharacterName = "   thisisarandomtestsentence" +
                                 "   whichislongerthanfiftycha" +
                                 "   racterslong",
-                Priority = 1
+                Priority = 1,
+                GameId = 1,
             };
 
             try
@@ -124,10 +171,12 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithIncorrectPriorityTest()
         {
-            var created = new Character() 
-            { 
-                CharacterName = "Michael Myers", 
-                Priority = 0 
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = "Test Character 1",
+                Priority = -1,
+                GameId = 1,
             };
 
             try
@@ -143,7 +192,13 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void CreateCharWithIncorrectPriorityTest2()
         {
-            var created = new Character() { CharacterName = "Michael Myers", Priority = 4 };
+            var created = new Character()
+            {
+                CharacterId = 1,
+                CharacterName = "Test Character 1",
+                Priority = 5,
+                GameId = 1,
+            };
 
             try
             {
@@ -164,48 +219,15 @@ namespace I1JM39_HFT_2022231.Test
             #region Expected
             var expected = new Character[]
                 {
-                new Character()
-                {
-                    CharacterId = 1,
-                    CharacterName = "Counter Terrorist",
-                    Priority = 1
-                },
-                new Character()
-                {
-                    CharacterId = 2,
-                    CharacterName = "Terrorist",
-                    Priority = 1
-                },
-                new Character()
-                {
-                    CharacterId = 3,
-                    CharacterName = "Jett",
-                    Priority = 2
-                },
-                new Character()
-                {
-                    CharacterId = 4,
-                    CharacterName = "Reyna",
-                    Priority = 2
-                },
-                new Character()
-                {
-                    CharacterId = 5,
-                    CharacterName = "Raze",
-                    Priority = 1
-                },
-                new Character()
-                {
-                    CharacterId = 6,
-                    CharacterName = "Omen",
-                    Priority = 1
-                },
-                new Character()
-                {
-                    CharacterId = 7,
-                    CharacterName = "Brimstone",
-                    Priority = 1
-                },
+                    new Character("1#Test Character0#1#1"),
+                    new Character("2#Test Character1#2#1"),
+                    new Character("3#Test Character2#2#1"),
+                    new Character("4#Test Character3#1#2"),
+                    new Character("5#Test Character4#2#2"),
+                    new Character("6#Test Character5#3#2"),
+                    new Character("7#Test Character6#3#3"),
+                    new Character("8#Test Character7#2#3"),
+                    new Character("9#Test Character8#3#3"),
                 }.AsQueryable();
             #endregion
             mockRepo
@@ -224,19 +246,14 @@ namespace I1JM39_HFT_2022231.Test
         [Test]
         public void ReadCharWithValidIDTest()
         {
-            Character expected = new Character()
-            {
-                CharacterId = 3,
-                CharacterName = "Jett",
-                Priority = 2
-            };
+            Character expected = new Character("2#Test Character1#2#1");
 
             mockRepo
-                .Setup(d => d.Read(3))
+                .Setup(d => d.Read(2))
                 .Returns(expected);
 
             //ACT
-            var actual = logic.Read(3);
+            var actual = logic.Read(2);
 
             //ASSERT
             Assert.That(actual, Is.EqualTo(expected));
@@ -248,7 +265,7 @@ namespace I1JM39_HFT_2022231.Test
             {
                 logic.Read(0);
             }
-            catch{}
+            catch { }
 
             //ACT + ASSERT
             Assert.Throws<ArgumentOutOfRangeException>(() => logic.Read(0));
@@ -260,10 +277,11 @@ namespace I1JM39_HFT_2022231.Test
         public void UpdateCharCorrectTest()
         {
             var updated = new Character()
-            { 
+            {
                 CharacterId = 1,
-                CharacterName = "Terrorist 2",
-                Priority = 2
+                CharacterName = "Test Character 4",
+                Priority = 1,
+                GameId = 1,
             };
 
             //ACT
@@ -282,7 +300,7 @@ namespace I1JM39_HFT_2022231.Test
                 //ACT
                 logic.Update(updated);
             }
-            catch{}
+            catch { }
 
             //ASSERT
             Assert.Throws<NullReferenceException>(() => logic.Update(updated));
@@ -291,10 +309,11 @@ namespace I1JM39_HFT_2022231.Test
         public void UpdateCharWithIncorrectNameTest()
         {
             var updated = new Character()
-            { 
-                CharacterId= 1,
+            {
+                CharacterId = 1,
                 CharacterName = "",
-                Priority = 1
+                Priority = 1,
+                GameId = 1,
             };
 
             try
@@ -314,7 +333,8 @@ namespace I1JM39_HFT_2022231.Test
             {
                 CharacterId = 1,
                 CharacterName = null,
-                Priority = 1
+                Priority = 1,
+                GameId = 1,
             };
 
             try
@@ -334,7 +354,8 @@ namespace I1JM39_HFT_2022231.Test
             {
                 CharacterId = 1,
                 CharacterName = String.Empty,
-                Priority = 1
+                Priority = 1,
+                GameId = 1,
             };
 
             try
@@ -352,8 +373,10 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Character()
             {
-                CharacterName = "Michael Myers",
-                Priority = 0
+                CharacterId = 1,
+                CharacterName = "Test Character 4",
+                Priority = 0,
+                GameId = 1,
             };
 
             try
@@ -371,8 +394,10 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Character()
             {
-                CharacterName = "Michael Myers",
-                Priority = 4
+                CharacterId = 1,
+                CharacterName = "Test Character 4",
+                Priority = 4,
+                GameId = 1,
             };
 
             try
@@ -390,10 +415,12 @@ namespace I1JM39_HFT_2022231.Test
         {
             var updated = new Character()
             {
+                CharacterId = 1,
                 CharacterName = "   thisisarandomtestsentence" +
                                 "   whichislongerthanfiftycha" +
                                 "   racterslong",
-                Priority = 1
+                Priority = 1,
+                GameId = 1,
             };
 
             try

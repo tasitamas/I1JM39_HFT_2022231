@@ -22,15 +22,30 @@ namespace I1JM39_HFT_2022231.Test
         public void Init()
         {
             mockRepo = new Mock<IRepository<Developer>>();
-            mockRepo.Setup(d => d.ReadAll()).Returns(new List<Developer>()
+
+            Developer dev1 = new Developer
             {
-                new Developer("1#Valve Corporation"),
-                new Developer("2#Riot Games Inc."),
-                new Developer("3#Blizzard Entertainment"),
-                new Developer("4#Psyonix Inc."),
-                new Developer("5#Behaviour Interactive"),
-                new Developer("6#Rockstar Games")
-            }.AsQueryable());
+                DeveloperId = 1,
+                DeveloperName = "Test Developer 1",
+                GameId = 1,
+            };
+            Developer dev2 = new Developer
+            {
+                DeveloperId = 2,
+                DeveloperName = "Test Developer 2",
+                GameId = 2,
+            };
+            Developer dev3 = new Developer
+            {
+                DeveloperId = 3,
+                DeveloperName = "Test Developer 3",
+                GameId = 3,
+            };
+            var devs = new List<Developer>() { dev1, dev2, dev2 }.AsQueryable();
+
+            mockRepo.Setup(g => g.Create(It.IsAny<Developer>()));
+            mockRepo.Setup(d => d.ReadAll()).Returns(devs);
+
             logic = new DeveloperLogic(mockRepo.Object);
         }
 
@@ -40,8 +55,9 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Developer()
             {
-                DeveloperId = 7,
-                DeveloperName = "Bethesda Inc."
+                DeveloperId = 1,
+                DeveloperName = "Test Developer 4",
+                GameId = 1,
             };
 
             //ACT
@@ -55,8 +71,9 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Developer()
             {
-                DeveloperId = 7,
+                DeveloperId = 1,
                 DeveloperName = null,
+                GameId = 1,
             };
 
             try
@@ -74,8 +91,9 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Developer()
             {
-                DeveloperId = 7,
+                DeveloperId = 1,
                 DeveloperName = "",
+                GameId = 1,
             };
 
             try
@@ -93,8 +111,9 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Developer()
             {
-                DeveloperId = 7,
+                DeveloperId = 1,
                 DeveloperName = String.Empty,
+                GameId = 1,
             };
 
             try
@@ -112,11 +131,12 @@ namespace I1JM39_HFT_2022231.Test
         {
             var created = new Developer()
             {
-                DeveloperId= 7,
+                DeveloperId = 7,
                 DeveloperName = "imtryingtowritearandomunittest" +
                                 "sentencewhichislongerthanahund" +
                                 "redcharacterslongtotestmytestc" +
-                                "aseifitworksgood"
+                                "aseifitworksgood",
+                GameId = 1,
             };
 
             try
@@ -138,37 +158,25 @@ namespace I1JM39_HFT_2022231.Test
             #region Expected
             var expected = new Developer[]
                 {
-                    new Developer()
-                    { 
+                    new Developer
+                    {
                         DeveloperId = 1,
-                        DeveloperName = "Valve Corporation",
+                        DeveloperName = "Test Developer 1",
+                        GameId = 1,
                     },
-                    new Developer()
+                    new Developer
                     {
                         DeveloperId = 2,
-                        DeveloperName = "Riot Games Inc.",
+                        DeveloperName = "Test Developer 2",
+                        GameId = 2,
                     },
-                    new Developer()
+                    new Developer
                     {
                         DeveloperId = 3,
-                        DeveloperName = "Blizzard Entertainment",
+                        DeveloperName = "Test Developer 3",
+                        GameId = 3,
                     },
-                    new Developer()
-                    {
-                        DeveloperId = 4,
-                        DeveloperName = "Psyonix Inc.", 
-                    },
-                    new Developer()
-                    {
-                        DeveloperId = 5,
-                        DeveloperName = "Behaviour Interactive",
-                    },
-                    new Developer()
-                    {
-                        DeveloperId = 6,
-                        DeveloperName = "Rockstar Games",
-                    },
-                }.AsQueryable();
+        }.AsQueryable();
             #endregion
             mockRepo
                .Setup(d => d.ReadAll())
@@ -188,16 +196,17 @@ namespace I1JM39_HFT_2022231.Test
         {
             Developer expected = new Developer()
             {
-                DeveloperId = 3,
-                DeveloperName = "Blizzard Entertainment",
+                DeveloperId = 1,
+                DeveloperName = "Test Developer 1",
+                GameId = 1,
             };
 
             mockRepo
-                .Setup(d => d.Read(3))
+                .Setup(d => d.Read(1))
                 .Returns(expected);
 
             //ACT
-            var actual = logic.Read(3);
+            var actual = logic.Read(1);
 
             //ASSERT
             Assert.That(actual, Is.EqualTo(expected));
@@ -223,7 +232,8 @@ namespace I1JM39_HFT_2022231.Test
             var updated = new Developer()
             {
                 DeveloperId = 1,
-                DeveloperName = "Bethesda Inc."
+                DeveloperName = "Test Developer 4",
+                GameId = 1,
             };
 
             //ACT
@@ -242,7 +252,7 @@ namespace I1JM39_HFT_2022231.Test
                 //ACT
                 logic.Update(updated);
             }
-            catch{}
+            catch { }
 
             //ASSERT
             Assert.Throws<NullReferenceException>(() => logic.Update(updated));
@@ -254,6 +264,7 @@ namespace I1JM39_HFT_2022231.Test
             {
                 DeveloperId = 1,
                 DeveloperName = null,
+                GameId = 1,
             };
 
             try
@@ -273,6 +284,7 @@ namespace I1JM39_HFT_2022231.Test
             {
                 DeveloperId = 1,
                 DeveloperName = "",
+                GameId = 1,
             };
 
             try
@@ -292,6 +304,7 @@ namespace I1JM39_HFT_2022231.Test
             {
                 DeveloperId = 1,
                 DeveloperName = String.Empty,
+                GameId = 1,
             };
 
             try
@@ -314,6 +327,7 @@ namespace I1JM39_HFT_2022231.Test
                                 "sentencewhichislongerthanahund" +
                                 "redcharacterslongtotestmytestc" +
                                 "aseifitworksgood",
+                GameId = 1
             };
 
             try
