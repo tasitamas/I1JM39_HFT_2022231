@@ -70,24 +70,30 @@ namespace I1JM39_HFT_2022231.Repository
                     new Game("9#Grand Theft Auto V#15000#9.0#2013"),
                     new Game("10#Red Dead Redemption#9000#7.8#2010"),
                     new Game("11#Red Dead Redemption 2#9000#9.33#2018"),
-                    new Game("12#Call of Duty: Black Ops III#15000#6.77#2015")
-                });
+                    new Game("12#Call of Duty: Black Ops III#15000#6.77#2015"),
+                }); 
             modelBuilder.Entity<Developer>().HasData(new Developer[]
                 {
-                    new Developer("1#Valve Corporation#5"),
-                    new Developer("2#Riot Games Inc.#2"),
-                    new Developer("3#Blizzard Entertainment#3"),
-                    new Developer("4#Psyonix Inc.#7"),
-                    new Developer("5#Behaviour Interactive#8"),
-                    new Developer("6#Rockstar Games#9"),
-                    new Developer("7#Activision Blizzard#12"),
+                    new Developer("1#Valve Corporation#1"),
+                    new Developer("2#Valve Corporation#5"),
+                    new Developer("3#Valve Corporation#6"),
 
-                    new Developer("8#Microsoft#1"),
-                    new Developer("9#Ubisoft#1"),
-                    new Developer("10#Electronic Arts.#1"),
-                    new Developer("11#Nintendo#1"),
-                    new Developer("12#The NineHertz#1"),
-                    new Developer("13#The NineHertz2#1"),
+                    new Developer("4#Riot Games Inc.#2"),
+                    new Developer("5#Riot Games Inc.#4"),
+
+                    new Developer("6#Blizzard Entertainment#3"),
+                    
+                    new Developer("7#Psyonix Inc.#7"),
+                    
+                    new Developer("8#Behaviour Interactive#8"),
+                    
+                    new Developer("9#Rockstar Games#9"),
+                    new Developer("10#Rockstar Games#10"),
+                    new Developer("11#Rockstar Games#11"),
+
+                    new Developer("12#Activision Blizzard#12"),
+
+
                 });
             modelBuilder.Entity<Character>().HasData(new Character[]
                 {

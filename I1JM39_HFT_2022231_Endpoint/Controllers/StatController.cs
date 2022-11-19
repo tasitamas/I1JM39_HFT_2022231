@@ -16,26 +16,29 @@ namespace I1JM39_HFT_2022231_Endpoint.Controllers
         }
 
         #region Non CRUD
-        //[HttpGet]
-        //public IEnumerable<object> HighestRatedGame()
-        //{
-        //    return this.logic.HighestRatingGameWithDevName();
-        //}
-        //[HttpGet]
-        //public IEnumerable<object> LowestRatedGame()
-        //{
-        //    return this.logic.LowestRatingGameWithDevName();
-        //}
-        //[HttpGet]
-        //public IEnumerable<object> OlderThan10()
-        //{
-        //    return this.logic.OlderThan10YearsGames();
-        //}
-        //[HttpGet]
-        //public IEnumerable<object> GamesWithNpc()
-        //{
-        //    return this.logic.GamesWithNpc();
-        //}
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string,string>> HighestRatedGame()
+        {
+            return this.logic.HighestRatingGameWithDevName();
+        }
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string, string>> LowestRatedGame()
+        {
+            return this.logic.LowestRatingGameWithDevName();
+        }
+        
+        [HttpGet]
+        public IEnumerable<GameInfo> OlderThan10()
+        {
+            return this.logic.OlderThan10YearsGames();
+        }
+        
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string,int>> GamesCharactersCount()
+        {
+            return this.logic.GamesCharactersCount();
+        }
+        
         [HttpGet]
         public IEnumerable<object> OldestGame()
         {
@@ -46,13 +49,14 @@ namespace I1JM39_HFT_2022231_Endpoint.Controllers
         {
             return this.logic.YoungestGameWithDeveloperName();
         }
+        
         [HttpGet]
-        public IEnumerable<object> FreeGames()
+        public IEnumerable<RatingInfo> FreeGames()
         {
             return this.logic.FreeGames();
         }
         [HttpGet]
-        public IEnumerable<object> PaidGames()
+        public IEnumerable<RatingInfo> PaidGames()
         {
             return this.logic.PaidGames();
         }
