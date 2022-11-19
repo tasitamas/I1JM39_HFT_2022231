@@ -33,23 +33,23 @@ namespace I1JM39_HFT_2022231.Logic
                 ||  item.GameName == ""
                 ||  item.GameName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.Price < 0 || item.Price > 50000)
             {
-                throw new ArgumentOutOfRangeException("Not a correct price");
+                throw new ArgumentException("Not a correct price!");
             }
             else if (item.Rating < 0 || item.Rating > 10)
             {
-                throw new ArgumentOutOfRangeException("Not a correct rating");
+                throw new ArgumentException("Not a correct rating!");
             }
             else if (item.Release < 1900 || item.Release > 2030)
             {
-                throw new ArgumentOutOfRangeException("Not a correct release date");
+                throw new ArgumentException("Not a correct release date!");
             }
             else if (item.GameName.Length > 150)
             {
-                throw new ArgumentOutOfRangeException("The name is too long...");
+                throw new ArgumentException("The name is too long...");
             }
             else
             {
@@ -60,7 +60,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
             { 
@@ -71,7 +71,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
             {
@@ -92,23 +92,23 @@ namespace I1JM39_HFT_2022231.Logic
                 || item.GameName == ""
                 || item.GameName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.Price < 0 || item.Price > 20000)
             {
-                throw new ArgumentOutOfRangeException("Not a correct price");
+                throw new ArgumentException("Not a correct price!");
             }
             else if (item.Rating < 0 || item.Rating > 10)
             {
-                throw new ArgumentOutOfRangeException("Not a correct rating");
+                throw new ArgumentException("Not a correct rating!");
             }
             else if (item.Release < 1900 || item.Release > 2030)
             {
-                throw new ArgumentOutOfRangeException("Not a correct release date");
+                throw new ArgumentException("Not a correct release date!");
             }
             else if (item.GameName.Length > 150)
             {
-                throw new ArgumentOutOfRangeException("The name is too long...");
+                throw new ArgumentException("The name is too long...");
             }
             else
             {

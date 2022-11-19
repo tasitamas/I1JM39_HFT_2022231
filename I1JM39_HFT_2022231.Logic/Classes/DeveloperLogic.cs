@@ -22,7 +22,7 @@ namespace I1JM39_HFT_2022231.Logic
                 ||  item.DeveloperName == ""
                 ||  item.DeveloperName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.DeveloperName.Length > 100)
             {
@@ -37,7 +37,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
             { 
@@ -48,7 +48,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
             {
@@ -69,15 +69,15 @@ namespace I1JM39_HFT_2022231.Logic
                 || item.DeveloperName == ""
                 || item.DeveloperName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.DeveloperId <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("Not a correct ID.");
             }
             else if (item.DeveloperName.Length > 100)
             {
-                throw new ArgumentOutOfRangeException("The name is too long...");
+                throw new ArgumentException("The name is too long...");
             }
             else
             {

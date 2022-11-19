@@ -25,15 +25,15 @@ namespace I1JM39_HFT_2022231.Logic
                 || item.CharacterName == "" 
                 || item.CharacterName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.Priority < 1 || item.Priority > 3)
             {
-                throw new ArgumentOutOfRangeException("Not a correct priority");
+                throw new ArgumentException("Not a correct priority!");
             }
             else if (item.CharacterName.Length > 50)
             {
-                throw new ArgumentOutOfRangeException("The name too long...");
+                throw new ArgumentException("The name is too long...");
             }
             this.repo.Create(item);
         }
@@ -41,7 +41,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             this.repo.Delete(id);
         }
@@ -49,7 +49,7 @@ namespace I1JM39_HFT_2022231.Logic
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
             { 
@@ -70,15 +70,15 @@ namespace I1JM39_HFT_2022231.Logic
                     || item.CharacterName == ""
                     || item.CharacterName == String.Empty)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Name can't be empty!");
             }
             else if (item.Priority < 1 || item.Priority > 3)
             {
-                throw new ArgumentOutOfRangeException("Not a correct priority");
+                throw new ArgumentException("Not a correct priority!");
             }
             else if (item.CharacterId <= 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("Not a correct ID.");
             }
             else if (item.CharacterName.Length > 50)
             {
