@@ -18,9 +18,13 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Developer item)
         {
-            if (    item.DeveloperName == null
-                ||  item.DeveloperName == ""
-                ||  item.DeveloperName == String.Empty)
+            if (item.DeveloperId < 1)
+            {
+                throw new NullReferenceException("ID can't be less than 1!");
+            }
+            else if (item.DeveloperName == null
+                || item.DeveloperName == ""
+                || item.DeveloperName == String.Empty)
             {
                 throw new NullReferenceException("Name can't be empty!");
             }
@@ -29,13 +33,18 @@ namespace I1JM39_HFT_2022231.Logic
                 throw new ArgumentOutOfRangeException("The name is too long...");
             }
             else
-            { 
+            {
                 repo.Create(item);
             }
         }
         public void Delete(int id)
         {
-            if (id <= 0)
+            var dev = this.repo.Read(id);
+            if (dev == null)
+            {
+                throw new NullReferenceException("Item is null, can't be deleted.");
+            }
+            if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
@@ -46,7 +55,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public Developer Read(int id)
         {
-            if (id <= 0)
+            if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
@@ -71,7 +80,7 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new NullReferenceException("Name can't be empty!");
             }
-            else if (item.DeveloperId <= 0)
+            else if (item.DeveloperId < 1)
             {
                 throw new ArgumentException("Not a correct ID.");
             }

@@ -21,8 +21,12 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Character item)
         {
-            if (item.CharacterName == null 
-                || item.CharacterName == "" 
+            if (item.CharacterId < 1)
+            {
+                throw new NullReferenceException("ID can't be less than 1!");
+            }
+            else if (item.CharacterName == null
+                || item.CharacterName == ""
                 || item.CharacterName == String.Empty)
             {
                 throw new NullReferenceException("Name can't be empty!");
@@ -39,7 +43,12 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Delete(int id)
         {
-            if (id <= 0)
+            var character = this.repo.Read(id);
+            if (character == null)
+            {
+                throw new ArgumentException("Item is null, can't be deleted.");
+            }
+            if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
@@ -47,7 +56,7 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public Character Read(int id)
         {
-            if (id <= 0)
+            if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
@@ -76,7 +85,7 @@ namespace I1JM39_HFT_2022231.Logic
             {
                 throw new ArgumentException("Not a correct priority!");
             }
-            else if (item.CharacterId <= 0)
+            else if (item.CharacterId < 1)
             {
                 throw new ArgumentException("Not a correct ID.");
             }

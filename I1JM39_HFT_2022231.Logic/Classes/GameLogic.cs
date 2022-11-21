@@ -29,9 +29,13 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Game item)
         {
-            if (    item.GameName == null
-                ||  item.GameName == ""
-                ||  item.GameName == String.Empty)
+            if (item.GameId < 1)
+            {
+                throw new NullReferenceException("ID can't be less than 1!");
+            }
+            else if (item.GameName == null
+                || item.GameName == ""
+                || item.GameName == String.Empty)
             {
                 throw new NullReferenceException("Name can't be empty!");
             }
@@ -58,18 +62,23 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Delete(int id)
         {
-            if (id <= 0)
+            var game = this.gameRepo.Read(id);
+            if (game == null)
+            {
+                throw new ArgumentException("Item is null, can't be deleted.");
+            }
+            else if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
             else
-            { 
+            {
                 gameRepo.Delete(id);
             }
         }
         public Game Read(int id)
         {
-            if (id <= 0)
+            if (id < 1)
             {
                 throw new ArgumentException("ID is not valid! Item doesn't exists!");
             }
@@ -84,7 +93,11 @@ namespace I1JM39_HFT_2022231.Logic
         }
         public void Update(Game item)
         {
-            if (item == null)
+            if (item.GameId < 1)
+            {
+                throw new ArgumentException("ID is not valid! Item doesn't exists!");
+            }
+            else if (item == null)
             {
                 throw new NullReferenceException();
             }
