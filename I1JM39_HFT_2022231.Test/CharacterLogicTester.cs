@@ -145,71 +145,6 @@ namespace I1JM39_HFT_2022231.Test
             //ASSERT
             Assert.Throws<NullReferenceException>(() => logic.Create(created));
         }
-        [Test]
-        public void CreateCharWithLongerThan50NameTest()
-        {
-            var created = new Character()
-            {
-                CharacterId = 6,
-                CharacterName = "   thisisarandomtestsentence" +
-                                "   whichislongerthanfiftycha" +
-                                "   racterslong",
-                Priority = 1,
-                GameId = 1,
-            };
-
-            try
-            {
-                //ACT
-                logic.Create(created);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
-        }
-        [Test]
-        public void CreateCharWithIncorrectPriorityTest()
-        {
-            var created = new Character()
-            {
-                CharacterId = 1,
-                CharacterName = "Test Character 1",
-                Priority = -1,
-                GameId = 1,
-            };
-
-            try
-            {
-                //ACT
-                logic.Create(created);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
-        }
-        [Test]
-        public void CreateCharWithIncorrectPriorityTest2()
-        {
-            var created = new Character()
-            {
-                CharacterId = 1,
-                CharacterName = "Test Character 1",
-                Priority = 5,
-                GameId = 1,
-            };
-
-            try
-            {
-                //ACT
-                logic.Create(created);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Create(created));
-        }
         #endregion
 
         #region ReadAll test
@@ -257,18 +192,6 @@ namespace I1JM39_HFT_2022231.Test
 
             //ASSERT
             Assert.That(actual, Is.EqualTo(expected));
-        }
-        [Test]
-        public void ReadCharWithInvalidIDTest()
-        {
-            try
-            {
-                logic.Read(0);
-            }
-            catch { }
-
-            //ACT + ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Read(0));
         }
         #endregion
 
@@ -369,48 +292,6 @@ namespace I1JM39_HFT_2022231.Test
             Assert.Throws<NullReferenceException>(() => logic.Update(updated));
         }
         [Test]
-        public void UpdateCharWithIncorrectPriorityTest()
-        {
-            var updated = new Character()
-            {
-                CharacterId = 1,
-                CharacterName = "Test Character 4",
-                Priority = 0,
-                GameId = 1,
-            };
-
-            try
-            {
-                //ACT
-                logic.Update(updated);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
-        }
-        [Test]
-        public void UpdateCharWithIncorrectPriorityTest2()
-        {
-            var updated = new Character()
-            {
-                CharacterId = 1,
-                CharacterName = "Test Character 4",
-                Priority = 4,
-                GameId = 1,
-            };
-
-            try
-            {
-                //ACT
-                logic.Update(updated);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
-        }
-        [Test]
         public void UpdateCharWithLongerThan50NameTest()
         {
             var updated = new Character()
@@ -435,30 +316,5 @@ namespace I1JM39_HFT_2022231.Test
         }
         #endregion
 
-        #region Delete tests
-        [Test]
-        public void DeleteCharWithCorrectIdTest()
-        {
-            //ACT
-            logic.Delete(1);
-
-            //ASSERT
-            mockRepo
-                .Verify(c => c.Delete(It.IsAny<int>()), Times.Once);
-        }
-        [Test]
-        public void DeleteCharWithIncorrectIdTest()
-        {
-            try
-            {
-                //ACT
-                logic.Delete(0);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Delete(0));
-        }
-        #endregion
     }
 }

@@ -211,18 +211,6 @@ namespace I1JM39_HFT_2022231.Test
             //ASSERT
             Assert.That(actual, Is.EqualTo(expected));
         }
-        [Test]
-        public void ReadDevWithInvalidIDTest()
-        {
-            try
-            {
-                logic.Read(0);
-            }
-            catch { }
-
-            //ACT + ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Read(0));
-        }
         #endregion
 
         #region Update tests
@@ -317,56 +305,8 @@ namespace I1JM39_HFT_2022231.Test
             //ASSERT
             Assert.Throws<NullReferenceException>(() => logic.Update(updated));
         }
-        [Test]
-        public void UpdateDevWithLongerThan100NameTest()
-        {
-            var updated = new Developer()
-            {
-                DeveloperId = 1,
-                DeveloperName = "imtryingtowritearandomunittest" +
-                                "sentencewhichislongerthanahund" +
-                                "redcharacterslongtotestmytestc" +
-                                "aseifitworksgood",
-                GameId = 1
-            };
-
-            try
-            {
-                //ACT
-                logic.Update(updated);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Update(updated));
-        }
         #endregion
 
-        #region Delete tests
-        [Test]
-        public void DeleteDevTest()
-        {
-            //ACT
-            logic.Delete(1);
-
-            //ASSERT
-            mockRepo
-                .Verify(d => d.Delete(It.IsAny<int>()), Times.Once);
-        }
-        [Test]
-        public void DeleteDevWithIncorrectIDTest()
-        {
-            try
-            {
-                //ACT
-                logic.Delete(0);
-            }
-            catch { }
-
-            //ASSERT
-            Assert.Throws<ArgumentOutOfRangeException>(() => logic.Delete(0));
-        }
-        #endregion
     }
 }
 
