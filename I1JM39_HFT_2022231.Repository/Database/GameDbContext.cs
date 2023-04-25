@@ -59,18 +59,18 @@ namespace I1JM39_HFT_2022231.Repository
 
             modelBuilder.Entity<Game>().HasData(new Game[]
                 {
-                    new Game("1#Counter Strike:Global Offensive#3500#8.0#2012"),
-                    new Game("2#VALORANT#0.00#9.2#2020"),
-                    new Game("3#World Of Warcraft#10000#8.1#2004"),
-                    new Game("4#League of Legends#0.00#5.0#2009"),
-                    new Game("5#Half Life#1500#9.5#1998"),
-                    new Game("6#Team Fortress 2#0.00#7.9#2007"),
-                    new Game("7#Rocket League#3000#9.7#2015"),
-                    new Game("8#Dead by Daylight#5000#6.0#2016"),
-                    new Game("9#Grand Theft Auto V#15000#9.0#2013"),
-                    new Game("10#Red Dead Redemption#9000#7.8#2010"),
-                    new Game("11#Red Dead Redemption 2#9000#9.33#2018"),
-                    new Game("12#Call of Duty: Black Ops III#15000#6.77#2015"),
+                    new Game("1#Counter Strike:Global Offensive#3500#8,0#2012"),
+                    new Game("2#VALORANT#0,00#9,2#2020"),
+                    new Game("3#World Of Warcraft#10000#8,1#2004"),
+                    new Game("4#League of Legends#0,00#5,0#2009"),
+                    new Game("5#Half Life#1500#9,5#1998"),
+                    new Game("6#Team Fortress 2#0,00#7,9#2007"),
+                    new Game("7#Rocket League#3000#9,7#2015"),
+                    new Game("8#Dead by Daylight#5000#6,0#2016"),
+                    new Game("9#Grand Theft Auto V#15000#9,0#2013"),
+                    new Game("10#Red Dead Redemption#9000#7,8#2010"),
+                    new Game("11#Red Dead Redemption 2#9000#9,33#2018"),
+                    new Game("12#Call of Duty: Black Ops III#15000#6,77#2015"),
                 }); 
             modelBuilder.Entity<Developer>().HasData(new Developer[]
                 {
