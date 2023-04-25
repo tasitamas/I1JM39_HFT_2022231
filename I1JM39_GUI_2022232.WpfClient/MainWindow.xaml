@@ -41,7 +41,9 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
-                HorizontalAlignment="Stretch" Click="bt_games_Click">
+                Padding="0,0,0,3"
+                HorizontalAlignment="Stretch" 
+                Click="bt_games_Click">
 
             <Button.Resources>
                 <Style TargetType="Border">
@@ -50,7 +52,6 @@
             </Button.Resources>
 
         </Button>
-
         <Button x:Name="bt_chars" Content="Characters" 
                 
                 Grid.Row="2"
@@ -62,7 +63,9 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
-                HorizontalAlignment="Stretch" Click="bt_chars_Click">
+                Padding="0,0,0,3"
+                HorizontalAlignment="Stretch" 
+                Click="bt_chars_Click">
 
             <Button.Resources>
                 <Style TargetType="Border">
@@ -71,7 +74,6 @@
             </Button.Resources>
 
         </Button>
-
         <Button x:Name="bt_devs" Content="Developers" 
                 
                 Grid.Row="3"
@@ -83,7 +85,9 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
-                HorizontalAlignment="Stretch" Click="bt_devs_Click">
+                Padding="0,0,0,3"
+                HorizontalAlignment="Stretch" 
+                Click="bt_devs_Click">
 
             <Button.Resources>
                 <Style TargetType="Border">
@@ -92,7 +96,6 @@
             </Button.Resources>
 
         </Button>
-
         <Button x:Name="bt_exit" Content="Exit" 
                 
                 Grid.Row="3"
@@ -104,8 +107,10 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
+                Padding="0,0,0,3"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Click="bt_exit_Click">
+                VerticalAlignment="Bottom" 
+                Click="bt_exit_Click">
 
             <Button.Resources>
                 <Style TargetType="Border">

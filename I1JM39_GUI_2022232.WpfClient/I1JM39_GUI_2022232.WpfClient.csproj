@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="background.jpg" />
     <None Remove="game.jpg" />
+    <None Remove="select.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +25,7 @@
 
 	<ItemGroup>
 	  <Resource Include="game.jpg" />
+	  <Resource Include="select.jpg" />
 	</ItemGroup>
 
 </Project>

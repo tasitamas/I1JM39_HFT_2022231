@@ -28,17 +28,23 @@ namespace I1JM39_GUI_2022232.WpfClient
 
         private void bt_games_Click(object sender, RoutedEventArgs e)
         {
-
+            GameWindow gameWindow = new GameWindow();
+            this.Visibility= Visibility.Visible;
+            gameWindow.Show();
         }
 
         private void bt_chars_Click(object sender, RoutedEventArgs e)
         {
-
+            CharacterWindow characterWindow = new CharacterWindow();
+            this.Visibility= Visibility.Visible;
+            characterWindow.Show();
         }
 
         private void bt_devs_Click(object sender, RoutedEventArgs e)
         {
-
+            DeveloperWindow developerWindow = new DeveloperWindow();
+            this.Visibility= Visibility.Visible;
+            developerWindow.Show();
         }
 
 
