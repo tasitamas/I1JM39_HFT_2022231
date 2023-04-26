@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:I1JM39_GUI_2022232.WpfClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="MainColor" Color="MediumPurple"></SolidColorBrush>
+        <SolidColorBrush x:Key="TilteColor" Color="Gold"></SolidColorBrush>
+        <SolidColorBrush x:Key="TextBoxColor" Color="LightBlue"></SolidColorBrush>
     </Application.Resources>
 </Application>
