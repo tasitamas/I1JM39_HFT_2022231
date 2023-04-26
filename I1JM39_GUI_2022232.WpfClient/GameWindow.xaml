@@ -12,7 +12,8 @@
     <Window.Background>
         <ImageBrush ImageSource="/select.jpg"/>
     </Window.Background>
-    <Grid>
+    <Viewbox Stretch="Uniform">
+    <Grid Width="800" Height="450">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -173,7 +174,7 @@
                  Grid.RowSpan="10"
                  FontSize="20"
                  FontWeight="DemiBold"
-                 Margin="15"
+                 Margin="15,3,15,3"
                  BorderBrush="Black"
                  BorderThickness="3"
                  Background="{StaticResource MainColor}"
@@ -185,7 +186,7 @@
             </ListBox.ItemTemplate>
             <ListBox.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="20"/>
+                    <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </ListBox.Resources>
         </ListBox>
@@ -271,4 +272,5 @@
 
         </Button>
     </Grid>
+    </Viewbox>
 </Window>

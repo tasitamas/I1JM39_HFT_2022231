@@ -10,7 +10,8 @@
         <ImageBrush ImageSource="/game.jpg"/>
     </Window.Background>
 
-    <Grid>
+    <Viewbox Stretch="Uniform">
+    <Grid Width="800" Height="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -126,4 +127,5 @@
 
         </Button>
     </Grid>
+    </Viewbox>
 </Window>
