@@ -31,5 +31,7 @@ namespace I1JM39_GUI_2022232.WpfClient
         {
             this.Visibility = Visibility.Collapsed;
         }
+
+        
     }
 }

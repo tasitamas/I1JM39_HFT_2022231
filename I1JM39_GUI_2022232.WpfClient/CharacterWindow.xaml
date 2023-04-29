@@ -115,7 +115,7 @@
                 </ComboBox.Resources>
             </ComboBox>
             
-                <!--Listbox showing the elements of the data -->
+            <!--Listbox showing the elements of the data -->
             <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.RowSpan="6"
@@ -194,7 +194,7 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 Background="{StaticResource MainColor}"
-                    Command="{Binding DeleteCharacterCommand}">
+                Command="{Binding DeleteCharacterCommand}">
 
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -223,6 +223,30 @@
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </Button.Resources>
+
+            </Button>
+            <Button x:Name="bt_guide"
+                Content="?"
+                Grid.Row="3"
+                Grid.Column="5"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="5,0,5,0"
+                BorderBrush="Black"
+                BorderThickness="3"
+                Background="{StaticResource MainColor}">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip Content="1 - Main&#x0a;2 - Boss&#x0a;3 - NPC" 
+                             FontWeight="Bold"></ToolTip>
+                </Button.ToolTip>
 
             </Button>
         </Grid>
