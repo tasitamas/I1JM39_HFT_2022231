@@ -58,7 +58,7 @@ namespace I1JM39_GUI_2022232.WpfClient
         {
             if (!IsInDesignMode)
             {
-                Games = new RestCollection<Game>("http://localhost:23247/", "game");
+                Games = new RestCollection<Game>("http://localhost:23247/", "game","hub");
 
                 CreateGameCommand = new RelayCommand(() =>
                 {

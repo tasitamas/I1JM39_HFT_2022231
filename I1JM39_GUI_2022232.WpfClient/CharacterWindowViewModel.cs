@@ -55,7 +55,7 @@ namespace I1JM39_GUI_2022232.WpfClient
         {
             if (!IsInDesignMode)
             {
-                Characters = new RestCollection<Character>("http://localhost:23247/", "character");
+                Characters = new RestCollection<Character>("http://localhost:23247/", "character","hub");
 
                 CreateCharacterCommand = new RelayCommand(() =>
                 {

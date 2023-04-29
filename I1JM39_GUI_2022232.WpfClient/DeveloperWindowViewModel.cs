@@ -52,7 +52,7 @@ namespace I1JM39_GUI_2022232.WpfClient
         {
             if(!IsInDesignMode) 
             { 
-                Developers = new RestCollection<Developer>("http://localhost:23247/","developer");
+                Developers = new RestCollection<Developer>("http://localhost:23247/","developer","hub");
 
                 CreateDeveloperCommand = new RelayCommand(() =>
                 {

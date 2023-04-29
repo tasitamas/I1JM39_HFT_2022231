@@ -1,6 +1,7 @@
 using I1JM39_HFT_2022231.Logic;
 using I1JM39_HFT_2022231.Models;
 using I1JM39_HFT_2022231.Repository;
+using I1JM39_HFT_2022231_Endpoint.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace I1JM39_HFT_2022231_Endpoint
             services.AddTransient<IDeveloperLogic, DeveloperLogic>();
             services.AddTransient<ICharacterLogic, CharacterLogic>();
 
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -73,6 +76,7 @@ namespace I1JM39_HFT_2022231_Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
