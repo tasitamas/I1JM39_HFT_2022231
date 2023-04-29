@@ -5,13 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:I1JM39_GUI_2022232.WpfClient"
         mc:Ignorable="d"
-        Title="Developer Editor" Height="450" Width="800">
+        Title="Developer Editor" Height="450" Width="800"
+        Background="{StaticResource WindowImage}">
     <Window.DataContext>
         <local:DeveloperWindowViewModel/>
     </Window.DataContext>
-    <Window.Background>
-        <ImageBrush ImageSource="/select.jpg"/>
-    </Window.Background>
     <Viewbox Stretch="Uniform">
     <Grid Width="800" Height="450">
         <Grid.ColumnDefinitions>
@@ -69,11 +67,12 @@
                />
         
         <!--Textboxes for the elements to be modified -->
-        <TextBox Grid.Row="2"
+        <TextBox Text="{Binding SelectedDeveloper.DeveloperName}" 
+            Grid.Row="2"
                  Grid.Column="3"
                  Grid.ColumnSpan="3"
                  Margin="20"
-                 Padding="5"
+                 Padding="10"
                  FontSize="18"
                  FontWeight="DemiBold"
                  Background="{StaticResource TextBoxColor}"
@@ -98,7 +97,8 @@
                  BorderBrush="Black"
                  BorderThickness="3"
                  Background="{StaticResource MainColor}"
-                 ItemsSource="{Binding Developers}">
+                 ItemsSource="{Binding Developers}"
+                 SelectedItem="{Binding SelectedDeveloper}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding DeveloperName}" Foreground="White"></Label>
@@ -122,7 +122,8 @@
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="{StaticResource MainColor}">
+                Background="{StaticResource MainColor}"
+                Command ="{Binding CreateDeveloperCommand}">
 
             <Button.Resources>
                 <Style TargetType="Border">
@@ -141,7 +142,8 @@
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="{StaticResource MainColor}">
+                Background="{StaticResource MainColor}"
+                Command ="{Binding UpdateDeveloperCommand}">
 
             <Button.Resources>
                 <Style TargetType="Border">
@@ -160,7 +162,8 @@
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="{StaticResource MainColor}">
+                Background="{StaticResource MainColor}"
+                Command ="{Binding DeleteDeveloperCommand}">
 
             <Button.Resources>
                 <Style TargetType="Border">

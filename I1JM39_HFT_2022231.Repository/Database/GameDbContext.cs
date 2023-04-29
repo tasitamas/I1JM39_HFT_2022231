@@ -59,7 +59,7 @@ namespace I1JM39_HFT_2022231.Repository
 
             modelBuilder.Entity<Game>().HasData(new Game[]
                 {
-                    new Game("1#Counter Strike:Global Offensive#3500#8,0#2012"),
+                    new Game("1#Counter Strike:Global Offensive#3500#8,1#2012"),
                     new Game("2#VALORANT#0,00#9,2#2020"),
                     new Game("3#World Of Warcraft#10000#8,1#2004"),
                     new Game("4#League of Legends#0,00#5,0#2009"),

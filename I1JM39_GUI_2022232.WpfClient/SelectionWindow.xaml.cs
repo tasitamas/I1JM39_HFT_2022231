@@ -15,21 +15,20 @@ using System.Windows.Shapes;
 namespace I1JM39_GUI_2022232.WpfClient
 {
     /// <summary>
-    /// Interaction logic for CharacterWindow.xaml
+    /// Interaction logic for SelectionWindow.xaml
     /// </summary>
-    public partial class CharacterWindow : Window
+    public partial class SelectionWindow : Window
     {
-        public CharacterWindow()
+        public SelectionWindow()
         {
             InitializeComponent();
-            cb_prior.Items.Add("1");
-            cb_prior.Items.Add("2");
-            cb_prior.Items.Add("3");
         }
 
-        private void bt_back_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            MainWindow mw = new MainWindow();
+            this.Visibility = Visibility.Visible;
+            mw.Show();
         }
     }
 }

@@ -5,130 +5,209 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:I1JM39_GUI_2022232.WpfClient"
         mc:Ignorable="d"
-        Title="Character Editor" Height="450" Width="800">
+        Title="Character Editor" Height="450" Width="800"
+        Background="{StaticResource WindowImage}">
     <Window.DataContext>
         <local:CharacterWindowViewModel/>
     </Window.DataContext>
-    <Window.Background>
-        <ImageBrush ImageSource="/select.jpg"/>
-    </Window.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-        </Grid.RowDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="800" Height="450">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <Label Content="Choose one:"
+            <!--Main labels on the top of the screen -->
+            <Label Content="Choose one:"
+                   Grid.ColumnSpan="3"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                FontSize="32"
                FontWeight="Bold"
-               Foreground="Gold">
-            <Label.Effect>
-                <DropShadowEffect></DropShadowEffect>
-            </Label.Effect>
-        </Label>
-        <Label Content="Select action:"
-               Grid.Row="0"
-               Grid.Column="1"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               FontSize="32"
-               FontWeight="Bold"
-               Foreground="Gold">
-            <Label.Effect>
-                <DropShadowEffect></DropShadowEffect>
-            </Label.Effect>
+               Foreground="{StaticResource TilteColor}">
+                <Label.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Label.Effect>
             </Label>
-        <ListBox Grid.Row="1"
+            <Label Content="Select action:"
+               Grid.Row="0"
+               Grid.Column="3"
+                   Grid.ColumnSpan="3"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="32"
+               FontWeight="Bold"
+               Foreground="{StaticResource TilteColor}">
+                <Label.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Label.Effect>
+            </Label>
+
+            <!--Bottom labels for the features in a data -->
+            <Label Content="Name"
+               Grid.Row="1"
+               Grid.Column="3"
+               Grid.ColumnSpan="3"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               FontSize="20"
+               FontWeight="DemiBold"
+               Padding="5"
+               />
+            <Label Content="Priority/Type"
+               Grid.Row="3"
+               Grid.Column="3"
+               Grid.ColumnSpan="3"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               FontSize="20"
+               FontWeight="DemiBold"
+               Padding="5"
+               />
+            
+            <!--Textbox and ComboBox for the elements to be modified -->
+            <TextBox Text="{Binding SelectedCharacter.CharacterName}"
+                 Grid.Row="2"
+                 Grid.Column="3"
+                 Grid.ColumnSpan="3"
+                 Margin="10"
+                 Padding="7"
+                 FontSize="18"
+                 FontWeight="DemiBold"
+                 Background="{StaticResource TextBoxColor}"
+                 BorderThickness="3"
+                 BorderBrush="Black"
+                 >
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <ComboBox Grid.Row="4"
+                      Grid.Column="3"
+                      Grid.ColumnSpan="3"
+                      x:Name="cb_prior"
+                      Margin="15"
+                      Text="{Binding SelectedCharacter.Priority}"
+                      SelectedIndex="0"
+                      FontSize="18"
+                      FontWeight="DemiBold"
+                      VerticalContentAlignment="Center"
+                      HorizontalContentAlignment="Center">
+                <ComboBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+            
+                <!--Listbox showing the elements of the data -->
+            <ListBox Grid.Row="1"
                  Grid.Column="0"
-                 Grid.RowSpan="4"
+                 Grid.RowSpan="6"
+                     Grid.ColumnSpan="3"
                  FontSize="20"
                  FontWeight="DemiBold"
                  Margin="15"
                  BorderBrush="Black"
                  BorderThickness="3"
-                 Background="MediumPurple"
-                 Foreground="White"
-                 ItemsSource="{Binding Characters}">
-                    
+                 Background="{StaticResource MainColor}"
+                 ItemsSource="{Binding Characters}"
+            SelectedItem="{Binding SelectedCharacter}">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding CharacterName}"></Label>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
 
-        <Button x:Name="bt_create"
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding CharacterName}" Foreground="White"></Label>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+
+            <!--Buttons for the commands and exit -->
+            <Button x:Name="bt_create"
                 Content="Create"
-                Grid.Row="1"
-                Grid.Column="1"
-                FontSize="32"
+                Grid.Row="5"
+                Grid.Column="3"
+                FontSize="26"
                 FontWeight="DemiBold"
-                Margin="60,15,60,15"
+                Margin="10"
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="MediumPurple">
+                Background="{StaticResource MainColor}" 
+                Command="{Binding CreateCharacterCommand}">
 
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
 
-        </Button>
-        <Button x:Name="bt_update"
+            </Button>
+            <Button x:Name="bt_update"
                 Content="Update"
-                Grid.Row="2"
-                Grid.Column="1"
-                FontSize="32"
+                Grid.Row="5"
+                Grid.Column="4"
+                FontSize="26"
                 FontWeight="DemiBold"
-                Margin="60,15,60,15"
+                Margin="10"
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="MediumPurple">
+                Background="{StaticResource MainColor}"
+                    Command="{Binding UpdateCharacterCommand}">
 
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
 
-        </Button>
-        <Button x:Name="bt_delete"
+            </Button>
+            <Button x:Name="bt_delete"
                 Content="Delete"
-                Grid.Row="3"
-                Grid.Column="1"
-                FontSize="32"
+                Grid.Row="5"
+                Grid.Column="5"
+                FontSize="26"
                 FontWeight="DemiBold"
-                Margin="60,15,60,15"
+                Margin="10"
                 Padding="0,0,0,3"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="MediumPurple">
+                Background="{StaticResource MainColor}"
+                    Command="{Binding DeleteCharacterCommand}">
 
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
 
-        </Button>
-        <Button x:Name="bt_back"
+            </Button>
+            <Button x:Name="bt_back"
                 Content="Back"
-                Grid.Row="4"
-                Grid.Column="1"
-                FontSize="32"
+                Grid.Row="6"
+                Grid.Column="5"
+                FontSize="26"
                 FontWeight="DemiBold"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
@@ -136,14 +215,16 @@
                 Margin="0,0,0,15"
                 BorderBrush="Black"
                 BorderThickness="3"
-                Background="MediumPurple" Click="bt_back_Click">
+                Background="{StaticResource MainColor}"
+                    Click="bt_back_Click">
 
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
 
-        </Button>
-    </Grid>
+            </Button>
+        </Grid>
+    </Viewbox>
 </Window>

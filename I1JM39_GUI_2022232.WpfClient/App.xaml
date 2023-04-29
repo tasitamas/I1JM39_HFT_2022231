@@ -7,5 +7,7 @@
         <SolidColorBrush x:Key="MainColor" Color="MediumPurple"></SolidColorBrush>
         <SolidColorBrush x:Key="TilteColor" Color="Gold"></SolidColorBrush>
         <SolidColorBrush x:Key="TextBoxColor" Color="LightBlue"></SolidColorBrush>
+        <ImageBrush x:Key="MainImage" ImageSource="https://storage.superpixel.com/article/461423/019f9b36a014f457c57148a789912b37.png@900xAUTO"></ImageBrush>
+        <ImageBrush x:Key="WindowImage" ImageSource="https://i.pinimg.com/originals/4a/dc/c7/4adcc7841650aa5add50504c1bceaf62.png"></ImageBrush>
     </Application.Resources>
 </Application>
