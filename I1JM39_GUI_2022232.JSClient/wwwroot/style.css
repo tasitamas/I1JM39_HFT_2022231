@@ -1,0 +1,136 @@
+﻿#formdiv{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+#formdiv label, button, input {
+    margin: 5px;
+    padding: 5px;
+}
+#formdiv label {
+    text-align:center;
+    font-weight: bolder;
+    font-size: 1.4em;
+}
+#formdiv button {
+    font-size:2vh;
+    font-weight: bold;
+    border: 4px solid black;
+    border-radius: 50px;
+    background-color: mediumpurple;
+    width:20vw;
+    align-self:center;
+}
+
+#updateformdiv {
+    display:none;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+#updateformdiv label, button, input {
+    margin: 5px;
+    padding: 5px;
+}
+#updateformdiv label {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.4em;
+}
+#updateformdiv button {
+    font-size: 2vh;
+    font-weight: bold;
+    border: 4px solid black;
+    border-radius: 50px;
+    background-color: mediumpurple;
+    width: 20vw;
+    align-self: center;
+}
+
+body {
+    background-image:url('Images/main.png');
+    background-size:100vw 100vh;
+}
+h1{
+    text-align: center;
+    text-shadow: 3px 3px black;
+    color : gold;
+    font-size:6vw;
+}
+
+.Container{
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
+.Container a {
+        color: black;
+        text-decoration: none;
+        font-size: 5vh;
+        margin: 20px;
+        width: 30vh;
+        padding: 3vh;
+        background-color: mediumpurple;
+        text-align: center;
+        font-family: 'Segoe UI';
+        font-weight: bold;
+        border: 5px solid black;
+        border-radius: 50px;
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
+    }
+
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    transform: scale(1.1);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: white;
+}
+table button {
+    background-color:mediumpurple;
+    margin-left:5px;
+    font-weight:bold;
+    border:3px 3px green;
+}
+table, th, td {
+    border: 1px solid black;
+    font-weight:bolder;
+}
+th, td {
+    padding: 5px;
+}
+th {
+    background-color: mediumpurple;
+    font-size: 120%;
+    border: 2px solid black;
+}
+
+/*This makes the outline borders a bit thicker*/
+tr:first-child th,
+tr:first-child td {
+    border-top-width: 2px;
+}
+
+tr:last-child th,
+tr:last-child td {
+    border-bottom-width: 2px;
+}
+
+tr th:first-child,
+tr td:first-child {
+    border-left-width: 2px;
+}
+
+tr th:last-child,
+tr td:last-child {
+    border-right-width: 2px;
+}
+
