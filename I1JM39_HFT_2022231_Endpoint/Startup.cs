@@ -69,6 +69,12 @@ namespace I1JM39_HFT_2022231_Endpoint
                 await context.Response.WriteAsJsonAsync(response);
             }));
 
+            app.UseCors(x => x
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:31757"));
+
             app.UseRouting();
 
             app.UseAuthorization();

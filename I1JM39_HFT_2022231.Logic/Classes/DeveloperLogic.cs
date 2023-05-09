@@ -17,12 +17,7 @@ namespace I1JM39_HFT_2022231.Logic
 
         //CRUD Methods
         public void Create(Developer item)
-        {
-            //if (item.DeveloperId < 1)
-            //{
-            //    throw new NullReferenceException("ID can't be less than 1!");
-            //}
-            //else 
+        { 
             if (item.DeveloperName == null
                 || item.DeveloperName == ""
                 || item.DeveloperName == String.Empty)

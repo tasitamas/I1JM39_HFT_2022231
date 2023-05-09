@@ -61,7 +61,6 @@ namespace I1JM39_GUI_2022232.WpfClient
                 {
                     Characters.Add(new Character()
                     {
-                        CharacterId = Characters.Max(t => t.CharacterId + 1),
                         CharacterName = SelectedCharacter.CharacterName,
                         Priority = SelectedCharacter.Priority,
                     });

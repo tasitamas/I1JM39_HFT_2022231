@@ -58,7 +58,6 @@ namespace I1JM39_GUI_2022232.WpfClient
                 {
                     Developers.Add(new Developer()
                     {
-                        DeveloperId = Developers.Max(t => t.DeveloperId + 1),
                         DeveloperName = SelectedDeveloper.DeveloperName,
                     });
                 });

@@ -63,8 +63,7 @@ namespace I1JM39_GUI_2022232.WpfClient
                 CreateGameCommand = new RelayCommand(() =>
                 {
                     Games.Add(new Game()
-                    {
-                        GameId = Games.Max(t => t.GameId + 1),
+                    { 
                         GameName = SelectedGame.GameName,
                         Price = SelectedGame.Price,
                         Rating = SelectedGame.Rating,
