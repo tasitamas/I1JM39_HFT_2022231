@@ -21,14 +21,21 @@ namespace I1JM39_HFT_2022231.Repository
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseInMemoryDatabase("GameDb")
-                    .UseLazyLoadingProxies();
+                    .UseLazyLoadingProxies()
+                    .UseInMemoryDatabase("GameDb");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Game>(entity =>
             {
+                entity
+                .HasKey(game => game.GameId);
+
+                entity
+                .Property(game => game.GameId)
+                .ValueGeneratedOnAdd();
+
                 entity
                 .HasMany(game => game.Characters)
                 .WithOne(character => character.Game)
@@ -44,12 +51,26 @@ namespace I1JM39_HFT_2022231.Repository
             modelBuilder.Entity<Developer>(entity =>
             {
                 entity
+                .HasKey(developer => developer.DeveloperId);
+
+                entity
+                .Property(developer => developer.DeveloperId)
+                .ValueGeneratedOnAdd();
+
+                entity
                 .HasOne(developer => developer.Game)
                 .WithOne(game => game.Developer)
                 .OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Character>(entity =>
             {
+                entity
+                .HasKey(character => character.CharacterId);
+
+                entity
+                .Property(character => character.CharacterId)
+                .ValueGeneratedOnAdd();
+
                 entity
                 .HasOne(character => character.Game)
                 .WithMany(game => game.Characters)

@@ -21,11 +21,12 @@ namespace I1JM39_HFT_2022231.Logic
         //CRUD Methods
         public void Create(Character item)
         {
-            if (item.CharacterId < 1)
-            {
-                throw new NullReferenceException("ID can't be less than 1!");
-            }
-            else if (item.CharacterName == null
+            //if (item.CharacterId < 1)
+            //{
+            //    throw new NullReferenceException("ID can't be less than 1!");
+            //}
+            //else 
+            if (item.CharacterName == null
                 || item.CharacterName == ""
                 || item.CharacterName == String.Empty)
             {

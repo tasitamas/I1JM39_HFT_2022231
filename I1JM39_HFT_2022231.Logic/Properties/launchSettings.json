@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "I1JM39_HFT_2022231.Logic": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55833;http://localhost:55834"
+    }
+  }
+}
