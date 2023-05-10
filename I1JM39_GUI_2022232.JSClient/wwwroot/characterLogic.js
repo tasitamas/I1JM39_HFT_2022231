@@ -5,7 +5,7 @@ let characterIdToUpdate = -1;
 
 setupSignalR();
 
-//defaultValuesToLoad();
+defaultValuesToLoad();
 
 getdata();
 
@@ -144,4 +144,7 @@ function priorityToNumber(id) {
     } else {
         return 3;
     }
+}
+function defaultValuesToLoad() {
+    document.getElementById('characterName').placeholder = "Enter your character name here...";
 }

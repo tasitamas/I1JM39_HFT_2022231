@@ -1,4 +1,5 @@
 ﻿#formdiv{
+    margin-top:-5vh;
     display:flex;
     flex-direction:column;
     margin-bottom:15px;
@@ -21,9 +22,19 @@
     width:20vw;
     align-self:center;
 }
+#formdiv select{
+    margin:5px;
+    padding:5px;
+    text-align:center;
+    font-weight:bold;
+}
+#formdiv select option {
+    font-weight: bold;
+}
 
 #updateformdiv {
-    display:none;
+    margin-top: -5vh;
+    display: none;
     flex-direction: column;
     margin-bottom: 15px;
 }
@@ -45,16 +56,29 @@
     width: 20vw;
     align-self: center;
 }
+#updateformdiv select {
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+#updateformdiv select option {
+    font-weight: bold;
+}
+
 
 body {
     background-image:url('Images/main.png');
     background-size:100vw 100vh;
 }
 h1{
+    margin-top:-1vw;
+    display:inline-block;
     text-align: center;
     text-shadow: 3px 3px black;
     color : gold;
     font-size:6vw;
+    align-self:center;
 }
 
 .Container{
@@ -67,8 +91,8 @@ h1{
         color: black;
         text-decoration: none;
         font-size: 5vh;
-        margin: 20px;
         width: 30vh;
+        margin:10px;
         padding: 3vh;
         background-color: mediumpurple;
         text-align: center;
@@ -83,16 +107,14 @@ h1{
 a:visited {
     text-decoration: none;
 }
-a:hover {
-    transform: scale(1.1);
-}
-
 
 table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
     background-color: white;
+    overflow-y:scroll;
+    height:10vh;
 }
 table button {
     background-color:mediumpurple;
@@ -100,11 +122,9 @@ table button {
     font-weight:bold;
     border:3px 3px green;
 }
-table, th, td {
-    border: 1px solid black;
-    font-weight:bolder;
-}
 th, td {
+    border: 1px solid black;
+    font-weight: bolder;
     padding: 5px;
 }
 th {
@@ -118,19 +138,30 @@ tr:first-child th,
 tr:first-child td {
     border-top-width: 2px;
 }
-
 tr:last-child th,
 tr:last-child td {
     border-bottom-width: 2px;
 }
-
 tr th:first-child,
 tr td:first-child {
     border-left-width: 2px;
 }
-
 tr th:last-child,
 tr td:last-child {
     border-right-width: 2px;
 }
+
+
+.backButton {
+    margin: 1.2em 0;
+    text-align:center;
+}
+#back {
+    float:left;
+    width:5vw;
+}
+#back, a:hover {
+    transform: scale(1.1);
+}
+
 
