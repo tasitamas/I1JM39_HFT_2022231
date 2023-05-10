@@ -3,9 +3,15 @@ let connection = null;
 
 let gameIdToUpdate = -1;
 
+
+
 setupSignalR();
 
+defaultValuesToLoad();
+
 getdata();
+
+
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
@@ -130,5 +136,12 @@ function create() {
         .catch((error) => { console.error('Error:', error); }); 
 }
 
+function defaultValuesToLoad() {
+    document.getElementById('gameName').placeholder = "Enter your game name here...";
+    document.getElementById('gamePrice').placeholder = 0;
+    document.getElementById('gameRelease').placeholder = 2000;
+    document.getElementById('gameRating').placeholder = 0;
+
+}
 
 
