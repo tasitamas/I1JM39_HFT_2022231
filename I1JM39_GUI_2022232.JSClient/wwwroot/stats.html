@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats of the database</title>
+
+    <link rel="stylesheet" href="stats.css" />
+</head>
+<body>
+    <div class="backButton">
+        <a href="../index.html">
+            <img id="back" src="Images/back.png" alt="Back" />
+        </a>
+        <h1>Stats Catalog</h1>
+    </div>
+
+    <div class="grid">
+        <div class="left">
+            <select id="statSelection">
+                <option value="avgRating">Average rating</option>
+                <option value="sumOfGames">Sum of games</option>
+                <option value="oldestGame">Oldest game</option>
+                <option value="youngestGame">Youngest game</option>
+                <option value="highestPrice">Most expensive game</option>
+                <option value="freeGames">Free games</option>
+            </select>
+            
+            <button onclick="contentDecider()" type="button" id="showStat">Show stat</button>
+
+        </div>
+        <div class="right">
+            <table id="statTable">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>     
+        
+
+      
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="stats.js"></script>
+</body>
+</html>
