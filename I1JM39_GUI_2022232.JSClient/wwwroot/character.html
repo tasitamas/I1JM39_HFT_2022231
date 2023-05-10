@@ -2,9 +2,61 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Characters</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <h1>Character Catalog</h1>
 
+    <div class="backButton">
+        <a id="back" href="../index.html">Back</a>
+    </div>
+
+    <div id="formdiv">
+        <label>Name</label>
+        <input type="text" id="characterName" maxlength="50" />
+
+        <label>Priority</label>
+        <select id="characterPriority">
+            <option value="1">Main Character</option>
+            <option value="2">Boss</option>
+            <option value="3">NPC</option>
+        </select>
+
+        <button onclick="create()" type="button">Add Character</button>
+
+    </div>
+
+    <div id="updateformdiv">
+        <label>Name</label>
+        <input type="text" id="characterNameToUpdate" maxlength="100" />
+
+        <label>Priority</label>
+        <select id="characterPriorityToUpdate">
+            <option value="1">Main Character</option>
+            <option value="2">Boss</option>
+            <option value="3">NPC</option>
+        </select>
+
+        <button onclick="update()" type="button">Update Character</button>
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="characterLogic.js"></script>
 </body>
 </html>

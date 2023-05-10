@@ -45,7 +45,7 @@ async function getdata() {
         .then(x => x.json())
         .then(y => {
             developers = y;
-            console.log(developers);
+            //console.log(developers);
             display()
         });
 }
