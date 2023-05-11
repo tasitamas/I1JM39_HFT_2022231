@@ -147,4 +147,5 @@ function priorityToNumber(id) {
 }
 function defaultValuesToLoad() {
     document.getElementById('characterName').placeholder = "Enter your character name here...";
+    document.getElementById('characterPriority').placeholder = "Priority";
 }

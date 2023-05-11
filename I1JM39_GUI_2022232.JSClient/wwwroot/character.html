@@ -15,32 +15,29 @@
     </div>
 
     <div id="formdiv">
-        <label>Name</label>
         <input type="text" id="characterName" maxlength="50" />
 
-        <label>Priority</label>
         <select id="characterPriority">
+            <option value="" disabled selected>Choose a priority...</option>
             <option value="1">Main Character</option>
             <option value="2">Boss</option>
             <option value="3">NPC</option>
         </select>
 
-        <button onclick="create()" type="button">Add Character</button>
+        <button onclick="create()" type="button">Create</button>
 
     </div>
 
     <div id="updateformdiv">
-        <label>Name</label>
         <input type="text" id="characterNameToUpdate" maxlength="100" />
 
-        <label>Priority</label>
         <select id="characterPriorityToUpdate">
             <option value="1">Main Character</option>
             <option value="2">Boss</option>
             <option value="3">NPC</option>
         </select>
 
-        <button onclick="update()" type="button">Update Character</button>
+        <button onclick="update()" type="button">Update</button>
 
     </div>
 
