@@ -139,7 +139,7 @@ function create() {
 function defaultValuesToLoad() {
     document.getElementById('gameName').placeholder = "Enter your game name here...";
     document.getElementById('gamePrice').placeholder = "Price (0-50000)";
-    document.getElementById('gameRelease').placeholder = "Release (1900-2000)";
+    document.getElementById('gameRelease').placeholder = "Release (1900-2030)";
     document.getElementById('gameRating').placeholder = "Rating (1-10)";
 
 }
